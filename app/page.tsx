@@ -1,9 +1,47 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const img = (path: string) => `${B}${path}`;
 
 export default function Home() {
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    // Fade-up on scroll
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("in-view")),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+
+    // Active nav based on scroll position
+    const sections = ["menu", "envenenadas", "drinks", "galeria", "combos", "location"];
+    const navObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) navObserver.observe(el);
+    });
+
+    return () => { observer.disconnect(); navObserver.disconnect(); };
+  }, []);
+
+  const navLink = (href: string, label: string) => {
+    const id = href.replace("#", "");
+    return (
+      <li>
+        <a href={href} className={activeSection === id ? "active" : ""}>
+          {label}
+        </a>
+      </li>
+    );
+  };
   return (
     <>
       {/* NAV */}
@@ -16,11 +54,11 @@ export default function Home() {
           />
         </div>
         <ul className="nav-links">
-          <li><a href="#menu">Menú</a></li>
-          <li><a href="#envenenadas">Envenenadas</a></li>
-          <li><a href="#galeria">Galería</a></li>
-          <li><a href="#combos">El Parche</a></li>
-          <li><a href="#location">Ubicación</a></li>
+          {navLink("#menu", "Menú")}
+          {navLink("#envenenadas", "Envenenadas")}
+          {navLink("#galeria", "Galería")}
+          {navLink("#combos", "El Parche")}
+          {navLink("#location", "Ubicación")}
         </ul>
       </nav>
 
@@ -74,7 +112,7 @@ export default function Home() {
       </div>
 
       {/* MENU BURGERS */}
-      <div className="section" id="menu">
+      <div className="section fade-up" id="menu">
         <div className="section-header">
           <div className="section-num">01 — Carta</div>
           <h2 className="section-title">Burgers de la Casa</h2>
@@ -197,7 +235,7 @@ export default function Home() {
       </div>
 
       {/* ENTRADAS */}
-      <div className="section" style={{ paddingTop: 0 }}>
+      <div className="section fade-up" style={{ paddingTop: 0 }}>
         <div className="section-header">
           <div className="section-num">02 — Entradas</div>
           <h2 className="section-title">Para picar</h2>
@@ -258,7 +296,7 @@ export default function Home() {
       </div>
 
       {/* OTROS PLATOS */}
-      <div className="section" style={{ paddingTop: 0 }}>
+      <div className="section fade-up" style={{ paddingTop: 0 }}>
         <div className="section-header">
           <div className="section-num">03 — Otros Platos</div>
           <h2 className="section-title">Otros Platos</h2>
@@ -395,7 +433,7 @@ export default function Home() {
       </div>
 
       {/* ENVENENADAS */}
-      <div className="envenenadas-section" id="envenenadas">
+      <div className="envenenadas-section fade-up" id="envenenadas">
         <div className="envenenadas-inner">
           <div className="envenenadas-header">
             <div className="section-num" style={{ color: "#D62828" }}>04 — Especiales</div>
@@ -478,7 +516,7 @@ export default function Home() {
       </div>
 
       {/* COCTELES Y BEBIDAS */}
-      <div className="section" id="drinks">
+      <div className="section fade-up" id="drinks">
         <div className="section-header">
           <div className="section-num">05 — Barra</div>
           <h2 className="section-title">Cocteles &amp; Bebidas</h2>
@@ -547,7 +585,7 @@ export default function Home() {
       </div>
 
       {/* GALERIA */}
-      <div className="section" id="galeria" style={{ paddingTop: 0 }}>
+      <div className="section fade-up" id="galeria" style={{ paddingTop: 0 }}>
         <div className="section-header">
           <div className="section-num">06 — El Ambiente</div>
           <h2 className="section-title">Galería</h2>
@@ -572,7 +610,7 @@ export default function Home() {
       </div>
 
       {/* COMBOS */}
-      <div className="section" id="combos" style={{ paddingTop: 0 }}>
+      <div className="section fade-up" id="combos" style={{ paddingTop: 0 }}>
         <div className="section-header">
           <div className="section-num">07 — Combos</div>
           <h2 className="section-title">Combos</h2>
@@ -607,7 +645,7 @@ export default function Home() {
       </div>
 
       {/* UBICACIÓN */}
-      <div className="section" id="location" style={{ paddingTop: 0 }}>
+      <div className="section fade-up" id="location" style={{ paddingTop: 0 }}>
         <div className="section-header">
           <div className="section-num">08 — El Parche</div>
           <h2 className="section-title">Ubícanos</h2>
