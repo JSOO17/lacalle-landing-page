@@ -6,7 +6,9 @@
       "Bash(mv next.config.ts next.config.mjs)",
       "Bash(sed -i 's/import type { NextConfig } from \"\"next\"\";//' next.config.mjs)",
       "Bash(sed -i 's/const nextConfig: NextConfig/const nextConfig/' next.config.mjs)",
-      "Bash(npx jest:*)"
+      "Bash(npx jest:*)",
+      "Bash(gh run:*)",
+      "Bash(where gh:*)"
     ]
   }
 }

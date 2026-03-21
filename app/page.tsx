@@ -1,5 +1,8 @@
 "use client";
 
+const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const img = (path: string) => `${B}${path}`;
+
 export default function Home() {
   return (
     <>
@@ -7,7 +10,7 @@ export default function Home() {
       <nav>
         <div className="nav-logo">
           <img
-            src="/img-0.png"
+            src="/lacalle-landing-page/logo.png"
             alt="La Calle Burger"
             style={{ height: 44, width: 44, objectFit: "contain", borderRadius: "50%" }}
           />
@@ -25,7 +28,7 @@ export default function Home() {
       <div className="hero">
         <div className="hero-text">
           <img
-            src="/img-0.png"
+            src={img("/img-0.png")}
             alt="La Calle Burger"
             style={{ height: 72, width: 72, objectFit: "contain", borderRadius: "50%", marginBottom: 16, display: "block" }}
           />
@@ -45,7 +48,7 @@ export default function Home() {
           </button>
         </div>
         <div className="hero-img">
-          <img className="hero-burger-photo" src="/img-1.png" alt="La Calle Burger" />
+          <img className="hero-burger-photo" src={img("/img-1.png")} alt="La Calle Burger" />
           <div className="hero-photo-badge">★ La firma del barrio</div>
           <div className="hero-photo-footer">
             <span className="hero-name">La Calle</span>
@@ -80,7 +83,7 @@ export default function Home() {
         <div className="menu-grid">
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src="/img-1.png" alt="La Calle" style={{ objectPosition: "center 40%" }} />
+            <img className="menu-item-photo" src={img("/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">La Calle ★</div>
@@ -94,7 +97,7 @@ export default function Home() {
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src="/img-2.jpg" alt="Queen" style={{ objectPosition: "center 35%" }} />
+            <img className="menu-item-photo" src={img("/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">Queen ★</div>
@@ -108,7 +111,7 @@ export default function Home() {
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src="/img-3.png" alt="De Costilla" style={{ objectPosition: "center 70%" }} />
+            <img className="menu-item-photo" src={img("/img-3.png")} alt="De Costilla" style={{ objectPosition: "center 70%" }} />
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">De Costilla</div>
@@ -416,7 +419,7 @@ export default function Home() {
             </div>
 
             <div className="envenena-card">
-              <img className="envenena-card-photo" src="/img-4.jpg" alt="Mango Biche" />
+              <img className="envenena-card-photo" src={img("/img-4.jpg")} alt="Mango Biche" />
               <div className="envenena-card-body">
                 <div className="envenena-top">
                   <div className="envenena-name">Mango Biche</div>
@@ -552,15 +555,15 @@ export default function Home() {
         </div>
         <div className="galeria-grid">
           <div className="galeria-item tall">
-            <img className="galeria-photo" src="/img-3.png" alt="El parche" style={{ objectPosition: "center 70%" }} />
+            <img className="galeria-photo" src={img("/img-3.png")} alt="El parche" style={{ objectPosition: "center 70%" }} />
             <div className="galeria-label">El parche</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src="/img-1.png" alt="La Calle" style={{ objectPosition: "center 40%" }} />
+            <img className="galeria-photo" src={img("/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
             <div className="galeria-label">La Calle</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src="/img-2.jpg" alt="Queen" style={{ objectPosition: "center 35%" }} />
+            <img className="galeria-photo" src={img("/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
             <div className="galeria-label">La Queen</div>
           </div>
           <div className="galeria-item">🎸<div className="galeria-label">Noches en vivo</div></div>
@@ -644,7 +647,7 @@ export default function Home() {
       <footer>
         <div className="footer-logo">
           <img
-            src="/img-0.png"
+            src={img("/img-0.png")}
             alt="La Calle Burger"
             style={{ height: 48, width: 48, objectFit: "contain", borderRadius: "50%", opacity: 0.5 }}
           />
