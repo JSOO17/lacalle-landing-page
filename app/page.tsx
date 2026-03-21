@@ -682,7 +682,7 @@ export default function Home() {
 
         <div style={{ marginTop: 32, borderRadius: 8, overflow: "hidden", border: "1px solid #2a2a2a" }}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15845.184821800538!2d-75.57434!3d6.2476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4429a879e72c5b%3A0x2fbfa0be51c23b75!2sMedell%C3%ADn%2C%20Antioquia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.5283768019!2d-75.59866398818974!3d6.252017893735928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e468252bf5c9ac5%3A0xd33e31b6d5e9f891!2sAv.%2033%20%2376-132%2C%20Medell%C3%ADn%2C%20Antioquia%2C%20Colombia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
             width="100%"
             height="280"
             style={{ border: 0, display: "block", filter: "grayscale(1) invert(0.9) contrast(0.85)" }}
