@@ -1,0 +1,490 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --negro: #0f0f0f;
+  --amarillo: #F5C518;
+  --rojo: #D62828;
+  --gris: #1e1e1e;
+  --gris2: #2a2a2a;
+  --blanco: #f5f0e8;
+  --texto-suave: #aaa;
+}
+
+body {
+  background: var(--negro);
+  color: var(--blanco);
+  font-family: var(--font-barlow), "Barlow", sans-serif;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+  border-bottom: 1px solid #2a2a2a;
+  position: sticky;
+  top: 0;
+  background: rgba(15,15,15,0.97);
+  z-index: 99;
+}
+.nav-logo {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 26px;
+  letter-spacing: 3px;
+  color: var(--amarillo);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo span { color: var(--blanco); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links li a {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links li a:hover { color: var(--amarillo); }
+
+/* HERO */
+.hero {
+  padding: 72px 32px 64px;
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.hero-text { flex: 1; }
+.hero-tag {
+  display: inline-block;
+  background: var(--rojo);
+  color: white;
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+.hero-title {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 92px;
+  line-height: 0.9;
+  letter-spacing: 4px;
+  color: var(--blanco);
+  margin-bottom: 10px;
+}
+.hero-title .accent { color: var(--amarillo); }
+.hero-sub {
+  font-size: 16px;
+  color: var(--texto-suave);
+  line-height: 1.6;
+  max-width: 380px;
+  margin-bottom: 32px;
+}
+.hero-sub strong { color: var(--blanco); }
+.btn-primary {
+  background: var(--amarillo);
+  color: var(--negro);
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-primary:hover { background: #ffd730; transform: scale(1.02); }
+.hero-img { flex: 1; position: relative; max-width: 460px; }
+.hero-burger-photo {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: center 40%;
+  border-radius: 8px 8px 0 0;
+  display: block;
+}
+.hero-photo-footer {
+  background: var(--gris);
+  border: 1px solid #333;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hero-name {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.hero-price {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 28px;
+  color: var(--amarillo);
+}
+
+/* STRIPE */
+.stripe { background: var(--amarillo); padding: 10px 0; overflow: hidden; white-space: nowrap; }
+.stripe-inner { display: inline-flex; gap: 40px; animation: marquee 12s linear infinite; }
+.stripe-item {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: var(--negro);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.stripe-dot { color: var(--rojo); font-size: 20px; line-height: 1; flex-shrink: 0; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* SECTIONS */
+.section { max-width: 1100px; margin: 0 auto; padding: 64px 32px; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 20px;
+}
+.section-title {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: var(--blanco);
+}
+.section-line { flex: 1; height: 1px; background: #333; }
+.section-num {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--amarillo);
+  text-transform: uppercase;
+}
+
+/* MENU GRID */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: #2a2a2a;
+  border: 2px solid #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.menu-item { background: var(--negro); padding: 24px; transition: background 0.2s; }
+.menu-item:hover { background: #181818; }
+.menu-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.menu-item-name {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  max-width: 180px;
+}
+.menu-item-price {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 24px;
+  color: var(--amarillo);
+  flex-shrink: 0;
+}
+.menu-item-desc { font-size: 13px; color: var(--texto-suave); line-height: 1.5; }
+.menu-item-tag {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: #1e1e1e;
+  color: #777;
+  border: 1px solid #333;
+}
+.menu-item-tag.hot { background: rgba(214,40,40,0.12); color: var(--rojo); border-color: rgba(214,40,40,0.3); }
+.menu-item-tag.new { background: rgba(245,197,24,0.1); color: var(--amarillo); border-color: rgba(245,197,24,0.3); }
+.menu-item-tag.fav { background: rgba(255,165,0,0.12); color: #FFA500; border-color: rgba(255,165,0,0.3); }
+.menu-item-with-photo { padding: 0; overflow: hidden; }
+.menu-item-photo { width: 100%; height: 200px; object-fit: cover; display: block; }
+.menu-item-body { padding: 16px 24px 24px; }
+
+/* ENVENENADAS */
+.envenenadas-section {
+  background: #0a0a0a;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+.envenenadas-inner { max-width: 1100px; margin: 0 auto; padding: 64px 32px; }
+.envenenadas-header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #D6282830;
+  padding-bottom: 20px;
+}
+.envenenadas-title {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: var(--rojo);
+}
+.envenenadas-sub {
+  font-size: 13px;
+  color: #555;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.envenenadas-sub span { color: var(--rojo); }
+.envenenadas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.envenena-card {
+  background: #111;
+  border: 1px solid #D6282820;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+}
+.envenena-card:hover { border-color: #D62828; background: #140808; }
+.envenena-card-photo { width: 100%; height: 200px; object-fit: cover; object-position: center 30%; display: block; }
+.envenena-card-body { padding: 20px; }
+.envenena-card-no-photo { padding: 24px 20px; }
+.envenena-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.envenena-name {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--blanco);
+  max-width: 160px;
+}
+.envenena-price {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 26px;
+  color: var(--rojo);
+  flex-shrink: 0;
+}
+.envenena-desc { font-size: 12px; color: #666; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.5px; }
+.envenena-base { position: absolute; top: 14px; right: 14px; font-size: 18px; }
+
+/* BEBIDAS */
+.bebidas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.bebida-card {
+  background: var(--gris);
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 18px 16px;
+  transition: border-color 0.2s;
+}
+.bebida-card:hover { border-color: #444; }
+.bebida-name {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.bebida-price { font-family: var(--font-bebas), "Bebas Neue", sans-serif; font-size: 20px; color: var(--amarillo); }
+.bebida-desc { font-size: 11px; color: #555; margin-top: 4px; line-height: 1.4; }
+
+/* GALERIA */
+.galeria-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.galeria-item {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  background: var(--gris2);
+  transition: opacity 0.2s;
+}
+.galeria-item:hover { opacity: 0.88; }
+.galeria-item.tall { grid-row: 1 / 3; }
+.galeria-photo { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.galeria-label {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+}
+
+/* INFO */
+.info-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.info-box {
+  padding: 28px;
+  background: var(--gris);
+  border: 1px solid #333;
+  border-radius: 8px;
+  border-left: 3px solid var(--amarillo);
+}
+.info-box-label {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amarillo);
+  margin-bottom: 10px;
+}
+.info-box-content { font-size: 14px; color: var(--texto-suave); line-height: 1.8; }
+.info-box-content strong { color: var(--blanco); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid #2a2a2a;
+  padding: 28px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: #444;
+}
+.footer-logo span { color: #555; }
+.footer-copy { font-size: 12px; color: #444; letter-spacing: 1px; text-transform: uppercase; }
+.footer-social { display: flex; gap: 16px; }
+.footer-social a {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-social a:hover { color: var(--amarillo); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+
+  .hero { flex-direction: column; padding: 40px 20px 48px; gap: 32px; }
+  .hero-title { font-size: 68px; }
+  .hero-img { max-width: 100%; width: 100%; }
+  .hero-burger-photo { height: 260px; }
+
+  .stripe-item { font-size: 13px; }
+
+  .section { padding: 48px 20px; }
+  .section-title { font-size: 36px; }
+  .section-header { gap: 12px; }
+
+  .menu-grid { grid-template-columns: 1fr; }
+  .menu-item-with-photo .menu-item-photo { height: 220px; }
+
+  .envenenadas-inner { padding: 48px 20px; }
+  .envenenadas-title { font-size: 36px; }
+  .envenenadas-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  .bebidas-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .galeria-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 180px 180px 180px;
+  }
+  .galeria-item.tall { grid-row: 1 / 2; grid-column: 1 / 3; }
+
+  .info-row { grid-template-columns: 1fr; gap: 16px; }
+
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px 20px; }
+  .footer-social { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 56px; }
+  .section-title { font-size: 30px; }
+  .bebidas-grid { grid-template-columns: 1fr; }
+  .galeria-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 200px);
+  }
+  .galeria-item.tall { grid-row: 1 / 2; grid-column: 1; }
+  .envenenadas-grid { grid-template-columns: 1fr; }
+}
+
+/* Utility for sub-section labels */
+.sub-section-label {
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Alitas flavor tags */
+.flavor-tag {
+  font-size: 11px;
+  color: #888;
+  background: #1a1a1a;
+  padding: 3px 8px;
+  border-radius: 2px;
+  border: 1px solid #2a2a2a;
+}
+
+/* Price row inside menu item */
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--texto-suave);
+}
+.price-row-amount {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 16px;
+  color: var(--amarillo);
+}
