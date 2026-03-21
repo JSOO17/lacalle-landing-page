@@ -119,6 +119,20 @@ nav {
   border-radius: 8px 8px 0 0;
   display: block;
 }
+.hero-photo-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--rojo);
+  color: white;
+  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
 .hero-photo-footer {
   background: var(--gris);
   border: 1px solid #333;
