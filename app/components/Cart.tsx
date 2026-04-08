@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CartItem } from "../hooks/useCart";
 
 const ADDRESS_KEY = "lacalle_address";
+const BARRIO_KEY = "lacalle_barrio";
 
 interface CartProps {
   items: CartItem[];
@@ -24,24 +25,59 @@ export default function Cart({
   onClear,
 }: CartProps) {
   const [address, setAddress] = useState("");
+  const [barrio, setBarrio] = useState("");
   const [notes, setNotes] = useState("");
+  const [delivery, setDelivery] = useState<{ costo: number; tiempo: string } | null>(null);
+  const [loadingDelivery, setLoadingDelivery] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem(ADDRESS_KEY);
-    if (saved) setAddress(saved);
+    const savedAddress = localStorage.getItem(ADDRESS_KEY);
+    const savedBarrio = localStorage.getItem(BARRIO_KEY);
+    if (savedAddress) setAddress(savedAddress);
+    if (savedBarrio) {
+      setBarrio(savedBarrio);
+      fetchDelivery(savedBarrio);
+    }
   }, []);
+
+  const fetchDelivery = async (b: string) => {
+    if (!b.trim()) { setDelivery(null); return; }
+    setLoadingDelivery(true);
+    try {
+      const res = await fetch(`/api/delivery?barrio=${encodeURIComponent(b)}`);
+      const data = await res.json();
+      setDelivery(data);
+    } catch {
+      setDelivery(null);
+    } finally {
+      setLoadingDelivery(false);
+    }
+  };
 
   const handleAddressChange = (val: string) => {
     setAddress(val);
     localStorage.setItem(ADDRESS_KEY, val);
   };
 
+  const handleBarrioChange = (val: string) => {
+    setBarrio(val);
+    localStorage.setItem(BARRIO_KEY, val);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => fetchDelivery(val), 600);
+  };
+
   const handleOrder = () => {
     if (items.length === 0) return;
-    onPlaceOrder(address, notes);
+    const deliveryNote = delivery
+      ? `🛵 Domicilio (${barrio}): $${delivery.costo.toLocaleString("es-CO")} · ${delivery.tiempo}`
+      : "";
+    onPlaceOrder(address, [deliveryNote, notes].filter(Boolean).join("\n"));
     onClear();
     setAddress("");
+    setBarrio("");
     setNotes("");
+    setDelivery(null);
     onClose();
   };
 
@@ -212,8 +248,55 @@ export default function Cart({
                 </div>
               ))}
 
-              {/* Address & notes */}
+              {/* Barrio, address & notes */}
               <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="🏘️ Barrio (ej: Laureles, El Poblado...)"
+                    value={barrio}
+                    onChange={(e) => handleBarrioChange(e.target.value)}
+                    style={{
+                      background: "#1a1a1a",
+                      border: "1px solid #2a2a2a",
+                      borderRadius: 6,
+                      padding: "10px 14px",
+                      color: "var(--blanco)",
+                      fontFamily: "var(--font-barlow)",
+                      fontSize: "0.9rem",
+                      outline: "none",
+                      width: "100%",
+                      boxSizing: "border-box",
+                    }}
+                  />
+                  {/* Estimado domicilio */}
+                  {barrio.trim() && (
+                    <div style={{
+                      marginTop: 6,
+                      padding: "8px 12px",
+                      borderRadius: 6,
+                      background: "#1a1a1a",
+                      border: "1px solid #2a2a2a",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontSize: "0.82rem",
+                    }}>
+                      {loadingDelivery ? (
+                        <span style={{ color: "var(--texto-suave)" }}>Calculando...</span>
+                      ) : delivery ? (
+                        <>
+                          <span style={{ color: "var(--texto-suave)" }}>🛵 Domicilio est. · {delivery.tiempo}</span>
+                          <span style={{ color: "var(--amarillo)", fontWeight: 700 }}>
+                            +${delivery.costo.toLocaleString("es-CO")}
+                          </span>
+                        </>
+                      ) : (
+                        <span style={{ color: "#666" }}>Barrio no encontrado</span>
+                      )}
+                    </div>
+                  )}
+                </div>
                 <input
                   type="text"
                   placeholder="📍 Dirección de entrega"
@@ -267,6 +350,12 @@ export default function Cart({
               gap: 12,
             }}
           >
+            {delivery && (
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem" }}>
+                <span style={{ color: "var(--texto-suave)" }}>Domicilio est.</span>
+                <span style={{ color: "#aaa" }}>+${delivery.costo.toLocaleString("es-CO")}</span>
+              </div>
+            )}
             <div
               style={{
                 display: "flex",
@@ -278,7 +367,7 @@ export default function Cart({
             >
               <span style={{ color: "var(--texto-suave)" }}>Total</span>
               <span style={{ color: "var(--amarillo)" }}>
-                ${total.toLocaleString("es-CO")}
+                ${(total + (delivery?.costo ?? 0)).toLocaleString("es-CO")}
               </span>
             </div>
             <button
