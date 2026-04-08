@@ -605,14 +605,14 @@ export default function Home() {
 
         <h3 className="sub-section-label">Sodas saborizadas · $10.900</h3>
         <div className="bebidas-grid" style={{ marginBottom: 40 }}>
-          {[
+          {([
             { name: "Mango Biche", desc: "Soda sabor mango" },
             { name: "Sandía", desc: "Soda sabor sandía" },
             { name: "Cereza", desc: "Soda sabor cereza" },
             { name: "Maracuyá", desc: "Soda sabor maracuyá" },
             { name: "Lichi Naranja", desc: "Soda sabor lichi & naranja" },
             { name: "Frutos Rojos", desc: "Soda sabor frutos rojos" },
-          ].map((b) => (
+          ] as { name: string; desc: string; price?: string }[]).map((b) => (
             <div key={b.name} className="bebida-card">
               <div className="bebida-name">{b.name}</div>
               {b.price && <div className="bebida-price">{b.price}</div>}
