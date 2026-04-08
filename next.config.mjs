@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
-  basePath: "/lacalle-landing-page",
   env: {
-    NEXT_PUBLIC_BASE_PATH: "/lacalle-landing-page",
+    NEXT_PUBLIC_BASE_PATH: "",
   },
   images: {
     unoptimized: true,

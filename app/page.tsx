@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useCart } from "./hooks/useCart";
+import Cart from "./components/Cart";
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const img = (path: string) => `${B}${path}`;
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("");
+  const { items, addItem, updateQuantity, clear, total, count, isOpen, setIsOpen, placeOrder } = useCart();
 
   useEffect(() => {
     // Fade-up on scroll
@@ -86,7 +89,7 @@ export default function Home() {
           </button>
         </div>
         <div className="hero-img">
-          <img className="hero-burger-photo" src={img("/img-1.png")} alt="La Calle Burger" />
+          <img className="hero-burger-photo" src={img("/Platos/img-1.png")} alt="La Calle Burger" />
           <div className="hero-photo-badge">★ La firma del barrio</div>
           <div className="hero-photo-footer">
             <span className="hero-name">La Calle</span>
@@ -121,7 +124,7 @@ export default function Home() {
         <div className="menu-grid">
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
+            <img className="menu-item-photo" src={img("/Platos/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">La Calle ★</div>
@@ -131,11 +134,12 @@ export default function Home() {
                 Pan brioche, 150gr de carne artesanal, queso mozzarella fundido, cebolla caramelizada, tocineta, chorizo, guacamole, tomate &amp; lechuga.
               </div>
               <span className="menu-item-tag fav">★ La más barrio</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "la-calle", name: "La Calle ★", price: 35500 })}>+ Agregar</button>
             </div>
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
+            <img className="menu-item-photo" src={img("/Platos/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">Queen ★</div>
@@ -145,11 +149,12 @@ export default function Home() {
                 Pan brioche, 200gr de carne artesanal, mermelada de tocineta y cebolla, MIX de queso cheddar y mozzarella, lechuga &amp; tomate.
               </div>
               <span className="menu-item-tag fav">★ La más jugosa</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "queen", name: "Queen ★", price: 29900 })}>+ Agregar</button>
             </div>
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/img-3.png")} alt="De Costilla" style={{ objectPosition: "center 70%" }} />
+            <img className="menu-item-photo" src={img("/Platos/img-3.png")} alt="De Costilla" style={{ objectPosition: "center 70%" }} />
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">De Costilla</div>
@@ -159,6 +164,7 @@ export default function Home() {
                 Pan brioche, 150gr de carne artesanal, costilla desmechada en BBQ, queso mozzarella, guacamole, tomate &amp; lechuga.
               </div>
               <span className="menu-item-tag new">Del lugar</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "de-costilla", name: "De Costilla", price: 35500 })}>+ Agregar</button>
             </div>
           </div>
 
@@ -171,6 +177,7 @@ export default function Home() {
               Pan brioche, 150gr de carne artesanal, chicharrones carnudos en BBQ, pico de gallo, Sour Cream, plátano dulce &amp; lechuga.
             </div>
             <span className="menu-item-tag new">★ Nuestra master</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "de-chicharron", name: "De Chicharrón ★", price: 36500 })}>+ Agregar</button>
           </div>
 
           <div className="menu-item">
@@ -182,6 +189,7 @@ export default function Home() {
               300gr de carne artesanal, bañada en queso cheddar, doble tocineta parrillada, cebolla crispy, tomate y lechuga.
             </div>
             <span className="menu-item-tag hot">La más grande</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "doble-carne", name: "Doble Carne", price: 42500 })}>+ Agregar</button>
           </div>
 
           <div className="menu-item">
@@ -193,17 +201,22 @@ export default function Home() {
               Pan brioche, 150gr de carne artesanal, tocineta BBQ, cebolla caramelizada, guacamole y tomate, sobre papas en queso cheddar fundido.
             </div>
             <span className="menu-item-tag">Con papas incluidas</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "francesa", name: "Francesa", price: 35500 })}>+ Agregar</button>
           </div>
 
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">Classic</div>
-              <div className="menu-item-price">$28.500</div>
+          <div className="menu-item menu-item-with-photo">
+            <img className="menu-item-photo" src={img("/Platos/clasica.jpg")} alt="Classic" style={{ objectPosition: "center center" }} />
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Classic</div>
+                <div className="menu-item-price">$28.500</div>
+              </div>
+              <div className="menu-item-desc">
+                Pan brioche, 150gr de carne artesanal, queso cheddar derretido, doble tocineta parrillada, tomate &amp; lechuga.
+              </div>
+              <span className="menu-item-tag">La esencial</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "classic", name: "Classic", price: 28500 })}>+ Agregar</button>
             </div>
-            <div className="menu-item-desc">
-              Pan brioche, 150gr de carne artesanal, queso cheddar derretido, doble tocineta parrillada, tomate &amp; lechuga.
-            </div>
-            <span className="menu-item-tag">La esencial</span>
           </div>
 
           <div className="menu-item">
@@ -215,6 +228,7 @@ export default function Home() {
               Pan brioche, 150gr de carne artesanal, queso Philadelphia en mermelada de pimentón dulce, tocineta BBQ, 2 aros de cebolla, tomate &amp; lechuga.
             </div>
             <span className="menu-item-tag">Cremosa</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "philadelphia", name: "Philadelphia", price: 35500 })}>+ Agregar</button>
           </div>
 
           <div className="menu-item">
@@ -226,6 +240,22 @@ export default function Home() {
               Pan brioche, pechuga de pollo apanada, tomate, guacamole, tocineta parrillada en BBQ &amp; queso cheddar.
             </div>
             <span className="menu-item-tag">Sin res</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "de-pollo", name: "De Pollo", price: 34500 })}>+ Agregar</button>
+          </div>
+
+          <div className="menu-item menu-item-with-photo">
+            <img className="menu-item-photo" src={img("/Platos/piña.jpeg")} alt="Piña" style={{ objectPosition: "center center" }} />
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">De Piña</div>
+                <div className="menu-item-price">$35.500</div>
+              </div>
+              <div className="menu-item-desc">
+                Pan brioche, 150gr de carne artesanal, queso Philadelphia, piña asada y caramelizada, lechuga &amp; tocineta parrillada en BBQ flameada en salsa de piña anisada.
+              </div>
+              <span className="menu-item-tag new">Dulce & ahumada</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "de-pina", name: "De Piña", price: 35500 })}>+ Agregar</button>
+            </div>
           </div>
 
         </div>
@@ -249,6 +279,7 @@ export default function Home() {
             </div>
             <div className="menu-item-desc">Dedos de queso mozzarella apanados, con salsa miel mostaza.</div>
             <span className="menu-item-tag hot">Favorita</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "deditos-queso", name: "Deditos de Queso", price: 20700 })}>+ Agregar</button>
           </div>
           <div className="menu-item">
             <div className="menu-item-top">
@@ -257,6 +288,7 @@ export default function Home() {
             </div>
             <div className="menu-item-desc">Empanadas de carne y maíz, doradas y crujientes, acompañadas con guacamole.</div>
             <span className="menu-item-tag">Bien colombianas</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "empanaditas", name: "Empanaditas", price: 17200 })}>+ Agregar</button>
           </div>
           <div className="menu-item">
             <div className="menu-item-top">
@@ -265,6 +297,7 @@ export default function Home() {
             </div>
             <div className="menu-item-desc">Chicarrón carnudo, bañado en salsa BBQ &amp; con papas a la francesa.</div>
             <span className="menu-item-tag">Crocante</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "chicharrones", name: "Chicharrones", price: 18000 })}>+ Agregar</button>
           </div>
           <div className="menu-item">
             <div className="menu-item-top">
@@ -273,6 +306,7 @@ export default function Home() {
             </div>
             <div className="menu-item-desc">Papitas a la francesa cargadas de pulled pork, salsa BBQ &amp; mayo ajo.</div>
             <span className="menu-item-tag">Cargadas</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-pulled-pork", name: "Papas Pulled Pork", price: 15900 })}>+ Agregar</button>
           </div>
           <div className="menu-item">
             <div className="menu-item-top">
@@ -281,16 +315,16 @@ export default function Home() {
             </div>
             <div className="menu-item-desc">Papitas a la francesa, queso cheddar, tocineta &amp; salsa BBQ.</div>
             <span className="menu-item-tag">Clásica</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-cheddar", name: "Papas Cheddar & Tocineta", price: 15900 })}>+ Agregar</button>
           </div>
           <div className="menu-item">
             <div className="menu-item-top">
-              <div className="menu-item-name">Papas Callejeras</div>
-              <div className="menu-item-price">$33.700</div>
+              <div className="menu-item-name">Papas Mayo Ajo</div>
+              <div className="menu-item-price">$15.900</div>
             </div>
-            <div className="menu-item-desc">
-              Papa a la francesa en queso cheddar, tocineta, chorizo, plátano maduro, chicharrón en limón pimienta, sour cream &amp; guacamole.
-            </div>
-            <span className="menu-item-tag new">La más cargada</span>
+            <div className="menu-item-desc">Papa a la francesa, queso fundido &amp; maduritos.</div>
+            <span className="menu-item-tag">Sabor & contraste</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-mayo-ajo", name: "Papas Mayo Ajo", price: 15900 })}>+ Agregar</button>
           </div>
         </div>
       </div>
@@ -333,6 +367,11 @@ export default function Home() {
               </div>
             </div>
             <span className="menu-item-tag hot">Las favoritas</span>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x12", name: "Alitas x12", price: 38900 })}>+ x12</button>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x18", name: "Alitas x18", price: 54500 })}>+ x18</button>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x24", name: "Alitas x24", price: 70500 })}>+ x24</button>
+            </div>
           </div>
 
           {/* PICADAS */}
@@ -367,22 +406,29 @@ export default function Home() {
               350gr de jugosas costillas de cerdo, bañadas en salsa BBQ de la casa, con 4 arepas &amp; papitas.
             </div>
             <span className="menu-item-tag new">De la casa</span>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "costillas", name: "Costillas de Cerdo", price: 37700 })}>+ Agregar</button>
           </div>
 
           {/* PAPAS CALLEJERAS */}
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">Papas Callejeras</div>
-              <div className="menu-item-price">$33.700</div>
+          <div className="menu-item menu-item-with-photo">
+            <img className="menu-item-photo" src={img("/Platos/papascalle.jpeg")} alt="Papas Callejeras" style={{ objectPosition: "center center" }} />
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Papas Callejeras</div>
+                <div className="menu-item-price">$33.700</div>
+              </div>
+              <div className="menu-item-desc">
+                Papa a la francesa en queso cheddar, tocineta parrillada, chorizo, plátano maduro, chicharrón en limón pimienta, sour cream &amp; guacamole.
+              </div>
+              <span className="menu-item-tag hot">La más cargada</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-callejeras", name: "Papas Callejeras", price: 33700 })}>+ Agregar</button>
             </div>
-            <div className="menu-item-desc">
-              Papa a la francesa en queso cheddar, tocineta parrillada, chorizo, plátano maduro, chicharrón en limón pimienta, sour cream &amp; guacamole.
-            </div>
-            <span className="menu-item-tag hot">La más cargada</span>
           </div>
 
           {/* ESPECIALES */}
-          <div className="menu-item">
+          <div className="menu-item menu-item-with-photo">
+            <img className="menu-item-photo" src={img("/Platos/especiales.jpeg")} alt="Especiales" style={{ objectPosition: "center center" }} />
+            <div className="menu-item-body">
             <div className="menu-item-top">
               <div className="menu-item-name">Especiales</div>
               <div className="menu-item-price">$30.000</div>
@@ -394,6 +440,8 @@ export default function Home() {
               <span className="flavor-tag">2 salsas de tu preferencia</span>
             </div>
             <span className="menu-item-tag">Carne o pollo</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "especiales", name: "Especiales", price: 30000 })}>+ Agregar</button>
+            </div>
           </div>
 
           {/* POSTRES */}
@@ -457,7 +505,7 @@ export default function Home() {
             </div>
 
             <div className="envenena-card">
-              <img className="envenena-card-photo" src={img("/img-4.jpg")} alt="Mango Biche" />
+              <img className="envenena-card-photo" src={img("/Platos/img-4.jpg")} alt="Mango Biche" />
               <div className="envenena-card-body">
                 <div className="envenena-top">
                   <div className="envenena-name">Mango Biche</div>
@@ -528,21 +576,29 @@ export default function Home() {
           {[
             { name: "Cuba Libre", price: "$34.900", desc: "Coca Cola, limón y ron" },
             { name: "De Café", price: "$23.900", desc: "Helado, licor de café, leche y ron" },
-            { name: "Ibiza", price: "$23.900", desc: "Curazao, limón, triple sec, tequila, Coronita" },
+            { name: "Ibiza", price: "$23.900", desc: "Curazao, limón, triple sec, tequila, Coronita", img: "/Cocteles/ibiza.jpg" },
             { name: "Gorgojo", price: "$23.900", desc: "Curazao, limón, triple sec, granadina, tequila" },
             { name: "Cúpido Rojo", price: "$29.900", desc: "Sirope de frutos rojos, zumo de limón, ron, soda" },
-            { name: "Mojito de Sabores", price: "$23.900", desc: "Fresa y lichee, maracuyá & clásico" },
-            { name: "Mojito de Jagermeister", price: "$35.900", desc: "Hierbabuena, limón, endulzante, ron & Jagermeister" },
+            { name: "Mojito de Sabores", price: "$23.900", desc: "Fresa y lichee, maracuyá & clásico", img: "/Cocteles/mojito.JPEG" },
             { name: "Piña Colada", price: "$23.900", desc: "Piña, leche, crema de coco, leche condensada & ron" },
             { name: "Tequila Sunrise", price: "$21.000", desc: "Jugo de naranja, granadilla & tequila" },
             { name: "Margarita Limón", price: "$21.000", desc: "Limón, triple sec, tequila" },
             { name: "Copa de Sangría", price: "$19.900", desc: "Jarra $66.900" },
             { name: "Copa de Vino", price: "$16.900", desc: "" },
           ].map((c) => (
-            <div key={c.name} className="bebida-card">
+            <div key={c.name} className="bebida-card" style={c.img ? { padding: 0, overflow: "hidden" } : {}}>
+              {c.img && (
+                <img
+                  src={img(c.img)}
+                  alt={c.name}
+                  style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }}
+                />
+              )}
+              <div style={c.img ? { padding: "12px 16px" } : {}}>
               <div className="bebida-name">{c.name}</div>
               <div className="bebida-price">{c.price}</div>
               {c.desc && <div className="bebida-desc">{c.desc}</div>}
+              </div>
             </div>
           ))}
         </div>
@@ -556,8 +612,6 @@ export default function Home() {
             { name: "Maracuyá", desc: "Soda sabor maracuyá" },
             { name: "Lichi Naranja", desc: "Soda sabor lichi & naranja" },
             { name: "Frutos Rojos", desc: "Soda sabor frutos rojos" },
-            { name: "Red Bull", price: "$17.000", desc: "" },
-            { name: "Agua & Gaseosa", price: "$5.200+", desc: "" },
           ].map((b) => (
             <div key={b.name} className="bebida-card">
               <div className="bebida-name">{b.name}</div>
@@ -593,19 +647,29 @@ export default function Home() {
         </div>
         <div className="galeria-grid">
           <div className="galeria-item tall">
-            <img className="galeria-photo" src={img("/img-3.png")} alt="El parche" style={{ objectPosition: "center 70%" }} />
+            <img className="galeria-photo" src={img("/Platos/img-3.png")} alt="El parche" style={{ objectPosition: "center 70%" }} />
             <div className="galeria-label">El parche</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src={img("/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
+            <img className="galeria-photo" src={img("/Platos/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
             <div className="galeria-label">La Calle</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src={img("/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
+            <img className="galeria-photo" src={img("/Platos/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
             <div className="galeria-label">La Queen</div>
           </div>
-          <div className="galeria-item">🎸<div className="galeria-label">Noches en vivo</div></div>
-          <div className="galeria-item">🥃<div className="galeria-label">El bar</div></div>
+          <div className="galeria-item">
+            <img className="galeria-photo" src={img("/Galeria/pecera.PNG")} alt="El bar" style={{ objectPosition: "center center" }} />
+            <div className="galeria-label">El bar</div>
+          </div>
+          <div className="galeria-item tall">
+            <img className="galeria-photo" src={img("/Galeria/restmujer.jpg")} alt="El ambiente" style={{ objectPosition: "center center" }} />
+            <div className="galeria-label">El ambiente</div>
+          </div>
+          <div className="galeria-item">
+            <img className="galeria-photo" src={img("/Galeria/rest1.jpg")} alt="La Calle Burger" style={{ objectPosition: "center center" }} />
+            <div className="galeria-label">La Calle</div>
+          </div>
         </div>
       </div>
 
@@ -641,6 +705,14 @@ export default function Home() {
             <div className="menu-item-desc">2 Classic + 2 Papas + 2 Limonadas.</div>
             <span className="menu-item-tag">Para dos</span>
           </div>
+          <div className="menu-item">
+            <div className="menu-item-top">
+              <div className="menu-item-name">Jueves de Ñapa 🍗</div>
+              <div className="menu-item-price">¡De ñapa!</div>
+            </div>
+            <div className="menu-item-desc">Pide x18 o x24 alitas y te damos <strong>6 de ñapa</strong>. Solo los jueves.</div>
+            <span className="menu-item-tag hot">Solo Jueves</span>
+          </div>
         </div>
       </div>
 
@@ -655,7 +727,8 @@ export default function Home() {
           <div className="info-box">
             <div className="info-box-label">Dirección</div>
             <div className="info-box-content">
-              <strong>Medellín, Antioquia</strong><br />
+              <strong>Av 33 #76-132</strong><br />
+              Medellín, Antioquia<br />
               Colombia<br /><br />
               Domicilios:<br />
               <strong>321-530-7022</strong>
@@ -664,25 +737,46 @@ export default function Home() {
           <div className="info-box">
             <div className="info-box-label">Horarios</div>
             <div className="info-box-content">
-              <strong>Lun – Jue:</strong> 12pm – 11pm<br />
-              <strong>Vie – Sáb:</strong> 12pm – 1am<br />
-              <strong>Dom:</strong> 12pm – 9pm
+              <strong>Lun – Jue:</strong> 4pm – 10pm<br />
+              <strong>Vie – Sáb:</strong> 4pm – 12am<br />
+              <strong>Dom:</strong> 4pm – 10pm
             </div>
           </div>
           <div className="info-box">
-            <div className="info-box-label">Redes</div>
-            <div className="info-box-content">
-              <strong>La Calle Burger</strong><br />
-              Instagram · TikTok<br /><br />
-              Domicilios a toda la ciudad<br />
-              <strong>321-530-7022</strong>
+            <div className="info-box-label">Google Maps</div>
+            <div className="info-box-content" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span style={{ color: "#fbbc04", fontSize: "1.1rem", letterSpacing: 2 }}>★★★★★</span>
+              </div>
+              <div style={{ fontSize: "0.85rem", color: "var(--texto-suave)" }}>La Calle Burger 33</div>
+              <a
+                href="https://maps.app.goo.gl/FsNfkX6zCQb43NtV8"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  marginTop: 4,
+                  padding: "6px 14px",
+                  background: "var(--amarillo)",
+                  color: "var(--negro)",
+                  fontFamily: "var(--font-barlow-condensed)",
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                  letterSpacing: 1,
+                  textTransform: "uppercase",
+                  borderRadius: 4,
+                  textDecoration: "none",
+                }}
+              >
+                Ver en Google Maps
+              </a>
             </div>
           </div>
         </div>
 
         <div style={{ marginTop: 32, borderRadius: 8, overflow: "hidden", border: "1px solid #2a2a2a" }}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.5283768019!2d-75.59866398818974!3d6.252017893735928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e468252bf5c9ac5%3A0xd33e31b6d5e9f891!2sAv.%2033%20%2376-132%2C%20Medell%C3%ADn%2C%20Antioquia%2C%20Colombia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d935!2d-75.5979427!3d6.2390886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44299801eaa925%3A0xdf1c2635e74af77d!2sLa+Calle+Burger+33!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
             width="100%"
             height="280"
             style={{ border: 0, display: "block", filter: "grayscale(1) invert(0.9) contrast(0.85)" }}
@@ -709,6 +803,45 @@ export default function Home() {
           <a href="#">WhatsApp</a>
         </div>
       </footer>
+
+      {/* Carrito */}
+      <Cart
+        items={items}
+        total={total}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onUpdateQuantity={updateQuantity}
+        onPlaceOrder={placeOrder}
+        onClear={clear}
+      />
+
+      {/* Botón flotante */}
+      <button
+        onClick={() => setIsOpen(true)}
+        style={{
+          position: "fixed",
+          bottom: 32,
+          right: 32,
+          zIndex: 997,
+          background: count > 0 ? "var(--amarillo)" : "#1a1a1a",
+          color: count > 0 ? "var(--negro)" : "var(--blanco)",
+          border: count > 0 ? "none" : "1px solid #333",
+          borderRadius: 50,
+          padding: count > 0 ? "14px 22px" : "14px 18px",
+          fontFamily: "var(--font-bebas)",
+          fontSize: "1rem",
+          letterSpacing: 2,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          boxShadow: count > 0 ? "0 4px 20px rgba(253,216,53,0.35)" : "0 2px 10px rgba(0,0,0,0.4)",
+          transition: "all 0.3s ease",
+        }}
+      >
+        🛒
+        {count > 0 && <span>{count} — ${total.toLocaleString("es-CO")}</span>}
+      </button>
     </>
   );
 }

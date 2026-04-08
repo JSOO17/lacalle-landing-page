@@ -316,6 +316,7 @@ nav {
 .menu-item-tag {
   display: inline-block;
   margin-top: 12px;
+  margin-bottom: 4px;
   font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -332,7 +333,17 @@ nav {
 .menu-item-tag.fav { background: rgba(255,165,0,0.12); color: #FFA500; border-color: rgba(255,165,0,0.3); }
 .menu-item-with-photo { padding: 0; overflow: hidden; }
 .menu-item-photo { width: 100%; height: 200px; object-fit: cover; display: block; }
-.menu-item-body { padding: 16px 24px 24px; }
+.menu-item-body { padding: 16px 24px 20px; }
+.add-to-cart-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 10px; padding: 7px 16px;
+  background: transparent; border: 1px solid var(--amarillo);
+  color: var(--amarillo); border-radius: 4px;
+  font-family: var(--font-barlow-condensed); font-weight: 700;
+  font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.add-to-cart-btn:hover { background: var(--amarillo); color: var(--negro); }
 
 /* ENVENENADAS */
 .envenenadas-section {
