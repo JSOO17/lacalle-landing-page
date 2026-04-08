@@ -173,16 +173,19 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">De Chicharrón ★</div>
-              <div className="menu-item-price">$36.500</div>
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/chicharron.jpeg" alt="De Chicharrón" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">De Chicharrón ★</div>
+                <div className="menu-item-price">$36.500</div>
+              </div>
+              <div className="menu-item-desc">
+                Pan brioche, 150gr de carne artesanal, chicharrones carnudos en BBQ, pico de gallo, Sour Cream, plátano dulce &amp; lechuga.
+              </div>
+              <span className="menu-item-tag new">★ Nuestra master</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "de-chicharron", name: "De Chicharrón ★", price: 36500 })}>+ Agregar</button>
             </div>
-            <div className="menu-item-desc">
-              Pan brioche, 150gr de carne artesanal, chicharrones carnudos en BBQ, pico de gallo, Sour Cream, plátano dulce &amp; lechuga.
-            </div>
-            <span className="menu-item-tag new">★ Nuestra master</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "de-chicharron", name: "De Chicharrón ★", price: 36500 })}>+ Agregar</button>
           </div>
 
           <div className="menu-item">
@@ -234,6 +237,21 @@ export default function Home() {
             </div>
             <span className="menu-item-tag">Cremosa</span>
             <button className="add-to-cart-btn" onClick={() => addItem({ id: "philadelphia", name: "Philadelphia", price: 35500 })}>+ Agregar</button>
+          </div>
+
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/italiana.jpeg" alt="Italiana" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Italiana</div>
+                <div className="menu-item-price">$35.500</div>
+              </div>
+              <div className="menu-item-desc">
+                Pan brioche, 150gr de carne artesanal, mermelada de tomate rústico, queso Philadelphia, tocineta parrillada en BBQ, cebolla crispy &amp; lechuga bañada en reducción de balsámico.
+              </div>
+              <span className="menu-item-tag new">Sabor europeo</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "italiana", name: "Italiana", price: 35500 })}>+ Agregar</button>
+            </div>
           </div>
 
           <div className="menu-item">
@@ -450,7 +468,9 @@ export default function Home() {
           </div>
 
           {/* POSTRES */}
-          <div className="menu-item">
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/brownieconhelado.jpeg" alt="Postres" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
             <div className="menu-item-top">
               <div className="menu-item-name">Postres</div>
               <div className="menu-item-price"></div>
@@ -480,6 +500,7 @@ export default function Home() {
               </div>
             </div>
             <span className="menu-item-tag">Para cerrar</span>
+            </div>
           </div>
 
         </div>
