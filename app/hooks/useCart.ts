@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 export interface CartItem {
   id: string;
@@ -9,10 +9,26 @@ export interface CartItem {
 }
 
 const WHATSAPP_NUMBER = "573215307022";
+const CART_KEY = "lacalle_cart";
 
 export function useCart() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  // Cargar carrito guardado al iniciar
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(CART_KEY);
+      if (saved) setItems(JSON.parse(saved));
+    } catch {}
+  }, []);
+
+  // Guardar en localStorage cada vez que cambian los items
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_KEY, JSON.stringify(items));
+    } catch {}
+  }, [items]);
 
   const addItem = useCallback((item: Omit<CartItem, "quantity">) => {
     setItems((prev) => {
