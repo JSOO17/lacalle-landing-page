@@ -248,8 +248,26 @@ export default function Cart({
                 </div>
               ))}
 
-              {/* Barrio, address & notes */}
+              {/* Address, barrio & notes */}
               <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+                <input
+                  type="text"
+                  placeholder="📍 Dirección de entrega"
+                  value={address}
+                  onChange={(e) => handleAddressChange(e.target.value)}
+                  style={{
+                    background: "#1a1a1a",
+                    border: "1px solid #2a2a2a",
+                    borderRadius: 6,
+                    padding: "10px 14px",
+                    color: "var(--blanco)",
+                    fontFamily: "var(--font-barlow)",
+                    fontSize: "0.9rem",
+                    outline: "none",
+                    width: "100%",
+                    boxSizing: "border-box",
+                  }}
+                />
                 <div>
                   <input
                     type="text"
@@ -297,24 +315,6 @@ export default function Cart({
                     </div>
                   )}
                 </div>
-                <input
-                  type="text"
-                  placeholder="📍 Dirección de entrega"
-                  value={address}
-                  onChange={(e) => handleAddressChange(e.target.value)}
-                  style={{
-                    background: "#1a1a1a",
-                    border: "1px solid #2a2a2a",
-                    borderRadius: 6,
-                    padding: "10px 14px",
-                    color: "var(--blanco)",
-                    fontFamily: "var(--font-barlow)",
-                    fontSize: "0.9rem",
-                    outline: "none",
-                    width: "100%",
-                    boxSizing: "border-box",
-                  }}
-                />
                 <textarea
                   placeholder="📝 Notas (salsas, sin cebolla, etc.)"
                   value={notes}
