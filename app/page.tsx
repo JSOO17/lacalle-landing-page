@@ -10,6 +10,26 @@ const img = (path: string) => `${B}${path}`;
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("");
+  const [storeOpen, setStoreOpen] = useState(false);
+  const [closeTime, setCloseTime] = useState("");
+
+  useEffect(() => {
+    const check = () => {
+      const now = new Date();
+      const day = now.getDay(); // 0=dom, 1=lun ... 6=sab
+      const h = now.getHours() * 60 + now.getMinutes();
+      const open = 16 * 60; // 4pm
+      const closeWeek = 22 * 60; // 10pm lun-jue y dom
+      const closeFri = 24 * 60; // 12am vie-sab
+      const isFriSat = day === 5 || day === 6;
+      const close = isFriSat ? closeFri : closeWeek;
+      setStoreOpen(h >= open && h < close);
+      setCloseTime(isFriSat ? "12am" : "10pm");
+    };
+    check();
+    const t = setInterval(check, 60000);
+    return () => clearInterval(t);
+  }, []);
   const { items, addItem, updateQuantity, clear, total, count, isOpen, setIsOpen, placeOrder } = useCart();
 
   useEffect(() => {
@@ -65,6 +85,17 @@ export default function Home() {
           {navLink("#galeria", "Galería")}
           {navLink("#combos", "El Parche")}
           {navLink("#location", "Ubicación")}
+          <li style={{ display: "flex", alignItems: "center", gap: 6, marginLeft: 8 }}>
+            <span style={{
+              width: 8, height: 8, borderRadius: "50%",
+              background: storeOpen ? "#4ade80" : "#ef4444",
+              display: "inline-block",
+              boxShadow: storeOpen ? "0 0 6px #4ade80" : "none",
+            }} />
+            <span style={{ fontSize: "0.75rem", color: storeOpen ? "#4ade80" : "#ef4444", fontFamily: "var(--font-barlow-condensed)", letterSpacing: 1 }}>
+              {storeOpen ? `Abierto · cierra ${closeTime}` : "Cerrado"}
+            </span>
+          </li>
         </ul>
       </nav>
 
@@ -770,7 +801,7 @@ export default function Home() {
               Medellín, Antioquia<br />
               Colombia<br /><br />
               Domicilios:<br />
-              <strong>321-530-7022</strong>
+              <a href="tel:+573215307022" style={{ color: "var(--amarillo)", fontWeight: 700, textDecoration: "none" }}>321-530-7022</a>
             </div>
           </div>
           <div className="info-box">
@@ -841,7 +872,7 @@ export default function Home() {
         <div className="footer-social">
           <a href="#">Instagram</a>
           <a href="#">TikTok</a>
-          <a href="#">WhatsApp</a>
+          <a href="https://wa.me/573215307022" target="_blank" rel="noopener noreferrer">WhatsApp</a>
         </div>
       </footer>
 
