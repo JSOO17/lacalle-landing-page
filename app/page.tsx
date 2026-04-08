@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useCart } from "./hooks/useCart";
 import Cart from "./components/Cart";
 
@@ -50,10 +51,12 @@ export default function Home() {
       {/* NAV */}
       <nav>
         <div className="nav-logo">
-          <img
-            src="/lacalle-landing-page/logo.png"
+          <Image
+            src="/logo.png"
             alt="La Calle Burger"
-            style={{ height: 44, width: 44, objectFit: "contain", borderRadius: "50%" }}
+            width={44}
+            height={44}
+            style={{ objectFit: "contain", borderRadius: "50%" }}
           />
         </div>
         <ul className="nav-links">
@@ -68,10 +71,12 @@ export default function Home() {
       {/* HERO */}
       <div className="hero">
         <div className="hero-text">
-          <img
-            src={img("/img-0.png")}
+          <Image
+            src="/img-0.png"
             alt="La Calle Burger"
-            style={{ height: 72, width: 72, objectFit: "contain", borderRadius: "50%", marginBottom: 16, display: "block" }}
+            width={72}
+            height={72}
+            style={{ objectFit: "contain", borderRadius: "50%", marginBottom: 16, display: "block" }}
           />
           <div className="hero-tag">Medellín · Burgers &amp; Bar</div>
           <h1 className="hero-title">
@@ -89,7 +94,7 @@ export default function Home() {
           </button>
         </div>
         <div className="hero-img">
-          <img className="hero-burger-photo" src={img("/Platos/img-1.png")} alt="La Calle Burger" />
+          <Image className="hero-burger-photo" src="/Platos/img-1.png" alt="La Calle Burger" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} sizes="(max-width: 768px) 100vw, 460px" priority />
           <div className="hero-photo-badge">★ La firma del barrio</div>
           <div className="hero-photo-footer">
             <span className="hero-name">La Calle</span>
@@ -124,7 +129,7 @@ export default function Home() {
         <div className="menu-grid">
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/Platos/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/img-1.png" alt="La Calle" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">La Calle ★</div>
@@ -139,7 +144,7 @@ export default function Home() {
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/Platos/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/img-2.jpg" alt="Queen" fill style={{ objectFit: "cover", objectPosition: "center 35%" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">Queen ★</div>
@@ -154,7 +159,7 @@ export default function Home() {
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/Platos/img-3.png")} alt="De Costilla" style={{ objectPosition: "center 70%" }} />
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/img-3.png" alt="De Costilla" fill style={{ objectFit: "cover", objectPosition: "center 70%" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">De Costilla</div>
@@ -205,7 +210,7 @@ export default function Home() {
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/Platos/clasica.jpg")} alt="Classic" style={{ objectPosition: "center center" }} />
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/clasica.jpg" alt="Classic" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">Classic</div>
@@ -244,7 +249,7 @@ export default function Home() {
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/Platos/piña.jpeg")} alt="Piña" style={{ objectPosition: "center center" }} />
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/piña.jpeg" alt="Piña" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">De Piña</div>
@@ -411,7 +416,7 @@ export default function Home() {
 
           {/* PAPAS CALLEJERAS */}
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/Platos/papascalle.jpeg")} alt="Papas Callejeras" style={{ objectPosition: "center center" }} />
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/papascalle.jpeg" alt="Papas Callejeras" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">Papas Callejeras</div>
@@ -427,7 +432,7 @@ export default function Home() {
 
           {/* ESPECIALES */}
           <div className="menu-item menu-item-with-photo">
-            <img className="menu-item-photo" src={img("/Platos/especiales.jpeg")} alt="Especiales" style={{ objectPosition: "center center" }} />
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/especiales.jpeg" alt="Especiales" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
             <div className="menu-item-top">
               <div className="menu-item-name">Especiales</div>
@@ -505,7 +510,7 @@ export default function Home() {
             </div>
 
             <div className="envenena-card">
-              <img className="envenena-card-photo" src={img("/Platos/img-4.jpg")} alt="Mango Biche" />
+              <div style={{ position: "relative", height: 200 }}><Image src="/Platos/img-4.jpg" alt="Mango Biche" fill style={{ objectFit: "cover", objectPosition: "center 30%" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
               <div className="envenena-card-body">
                 <div className="envenena-top">
                   <div className="envenena-name">Mango Biche</div>
@@ -588,11 +593,9 @@ export default function Home() {
           ].map((c) => (
             <div key={c.name} className="bebida-card" style={c.img ? { padding: 0, overflow: "hidden" } : {}}>
               {c.img && (
-                <img
-                  src={img(c.img)}
-                  alt={c.name}
-                  style={{ width: "100%", height: 180, objectFit: "cover", display: "block" }}
-                />
+                <div style={{ position: "relative", height: 180 }}>
+                  <Image src={c.img} alt={c.name} fill style={{ objectFit: "cover" }} sizes="(max-width: 768px) 100vw, 300px" />
+                </div>
               )}
               <div style={c.img ? { padding: "12px 16px" } : {}}>
               <div className="bebida-name">{c.name}</div>
@@ -647,27 +650,27 @@ export default function Home() {
         </div>
         <div className="galeria-grid">
           <div className="galeria-item tall">
-            <img className="galeria-photo" src={img("/Platos/img-3.png")} alt="El parche" style={{ objectPosition: "center 70%" }} />
+            <Image src="/Platos/img-3.png" alt="El parche" fill style={{ objectFit: "cover", objectPosition: "center 70%" }} sizes="(max-width: 768px) 100vw, 50vw" />
             <div className="galeria-label">El parche</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src={img("/Platos/img-1.png")} alt="La Calle" style={{ objectPosition: "center 40%" }} />
+            <Image src="/Platos/img-1.png" alt="La Calle" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} sizes="(max-width: 768px) 100vw, 33vw" />
             <div className="galeria-label">La Calle</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src={img("/Platos/img-2.jpg")} alt="Queen" style={{ objectPosition: "center 35%" }} />
+            <Image src="/Platos/img-2.jpg" alt="Queen" fill style={{ objectFit: "cover", objectPosition: "center 35%" }} sizes="(max-width: 768px) 100vw, 33vw" />
             <div className="galeria-label">La Queen</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src={img("/Galeria/pecera.PNG")} alt="El bar" style={{ objectPosition: "center center" }} />
+            <Image src="/Galeria/pecera.PNG" alt="El bar" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 33vw" />
             <div className="galeria-label">El bar</div>
           </div>
           <div className="galeria-item tall">
-            <img className="galeria-photo" src={img("/Galeria/restmujer.jpg")} alt="El ambiente" style={{ objectPosition: "center center" }} />
+            <Image src="/Galeria/restmujer.jpg" alt="El ambiente" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 50vw" />
             <div className="galeria-label">El ambiente</div>
           </div>
           <div className="galeria-item">
-            <img className="galeria-photo" src={img("/Galeria/rest1.jpg")} alt="La Calle Burger" style={{ objectPosition: "center center" }} />
+            <Image src="/Galeria/rest1.jpg" alt="La Calle Burger" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 33vw" />
             <div className="galeria-label">La Calle</div>
           </div>
         </div>
@@ -790,10 +793,12 @@ export default function Home() {
       {/* FOOTER */}
       <footer>
         <div className="footer-logo">
-          <img
-            src={img("/img-0.png")}
+          <Image
+            src="/img-0.png"
             alt="La Calle Burger"
-            style={{ height: 48, width: 48, objectFit: "contain", borderRadius: "50%", opacity: 0.5 }}
+            width={48}
+            height={48}
+            style={{ objectFit: "contain", borderRadius: "50%", opacity: 0.5 }}
           />
         </div>
         <div className="footer-copy">© 2025 La Calle Burger · Medellín · Pa&apos; comer y parchar</div>
