@@ -227,16 +227,19 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">Philadelphia</div>
-              <div className="menu-item-price">$35.500</div>
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/philadelphia.jpeg" alt="Philadelphia" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Philadelphia</div>
+                <div className="menu-item-price">$35.500</div>
+              </div>
+              <div className="menu-item-desc">
+                Pan brioche, 150gr de carne artesanal, queso Philadelphia en mermelada de pimentón dulce, tocineta BBQ, 2 aros de cebolla, tomate &amp; lechuga.
+              </div>
+              <span className="menu-item-tag">Cremosa</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "philadelphia", name: "Philadelphia", price: 35500 })}>+ Agregar</button>
             </div>
-            <div className="menu-item-desc">
-              Pan brioche, 150gr de carne artesanal, queso Philadelphia en mermelada de pimentón dulce, tocineta BBQ, 2 aros de cebolla, tomate &amp; lechuga.
-            </div>
-            <span className="menu-item-tag">Cremosa</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "philadelphia", name: "Philadelphia", price: 35500 })}>+ Agregar</button>
           </div>
 
           <div className="menu-item menu-item-with-photo">
@@ -322,32 +325,41 @@ export default function Home() {
             <span className="menu-item-tag">Crocante</span>
             <button className="add-to-cart-btn" onClick={() => addItem({ id: "chicharrones", name: "Chicharrones", price: 18000 })}>+ Agregar</button>
           </div>
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">Papas Pulled Pork</div>
-              <div className="menu-item-price">$15.900</div>
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/papaspulledpork.jpeg" alt="Papas Pulled Pork" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Papas Pulled Pork</div>
+                <div className="menu-item-price">$15.900</div>
+              </div>
+              <div className="menu-item-desc">Papitas a la francesa cargadas de pulled pork, salsa BBQ &amp; mayo ajo.</div>
+              <span className="menu-item-tag">Cargadas</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-pulled-pork", name: "Papas Pulled Pork", price: 15900 })}>+ Agregar</button>
             </div>
-            <div className="menu-item-desc">Papitas a la francesa cargadas de pulled pork, salsa BBQ &amp; mayo ajo.</div>
-            <span className="menu-item-tag">Cargadas</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-pulled-pork", name: "Papas Pulled Pork", price: 15900 })}>+ Agregar</button>
           </div>
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">Papas Cheddar &amp; Tocineta</div>
-              <div className="menu-item-price">$15.900</div>
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/papasquesocheddar.jpeg" alt="Papas Cheddar & Tocineta" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Papas Cheddar &amp; Tocineta</div>
+                <div className="menu-item-price">$15.900</div>
+              </div>
+              <div className="menu-item-desc">Papitas a la francesa, queso cheddar, tocineta &amp; salsa BBQ.</div>
+              <span className="menu-item-tag">Clásica</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-cheddar", name: "Papas Cheddar & Tocineta", price: 15900 })}>+ Agregar</button>
             </div>
-            <div className="menu-item-desc">Papitas a la francesa, queso cheddar, tocineta &amp; salsa BBQ.</div>
-            <span className="menu-item-tag">Clásica</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-cheddar", name: "Papas Cheddar & Tocineta", price: 15900 })}>+ Agregar</button>
           </div>
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">Papas Mayo Ajo</div>
-              <div className="menu-item-price">$15.900</div>
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/papasmayoajo.jpeg" alt="Papas Mayo Ajo" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Papas Mayo Ajo</div>
+                <div className="menu-item-price">$15.900</div>
+              </div>
+              <div className="menu-item-desc">Papa a la francesa, queso fundido &amp; maduritos.</div>
+              <span className="menu-item-tag">Sabor & contraste</span>
+              <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-mayo-ajo", name: "Papas Mayo Ajo", price: 15900 })}>+ Agregar</button>
             </div>
-            <div className="menu-item-desc">Papa a la francesa, queso fundido &amp; maduritos.</div>
-            <span className="menu-item-tag">Sabor & contraste</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-mayo-ajo", name: "Papas Mayo Ajo", price: 15900 })}>+ Agregar</button>
           </div>
         </div>
       </div>
