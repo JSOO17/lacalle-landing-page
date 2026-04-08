@@ -240,7 +240,7 @@ export default function Home() {
           </div>
 
           <div className="menu-item menu-item-with-photo">
-            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/italiana.jpeg" alt="Italiana" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div style={{ position: "relative", height: 200 }}><Image src="/Platos/italiana.jpeg" alt="Italiana" fill style={{ objectFit: "cover", objectPosition: "center 78%" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
             <div className="menu-item-body">
               <div className="menu-item-top">
                 <div className="menu-item-name">Italiana</div>
