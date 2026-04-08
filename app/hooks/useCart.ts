@@ -46,7 +46,7 @@ export function useCart() {
    * POST a tu API: fetch("/api/orders", { method: "POST", body: JSON.stringify({ items, address, notes }) })
    */
   const placeOrder = useCallback(
-    (address: string, notes: string) => {
+    (address: string, notes: string, delivery?: { costo: number; barrio: string; tiempo: string }) => {
       const lines = items
         .map(
           (i) =>
@@ -54,12 +54,16 @@ export function useCart() {
         )
         .join("\n");
 
+      const grandTotal = total + (delivery?.costo ?? 0);
+
       const parts = [
         "Hola! 🍔 Quiero hacer un pedido en *La Calle Burger*:",
         "",
         lines,
         "",
-        `*Total: $${total.toLocaleString("es-CO")}*`,
+        `Subtotal: $${total.toLocaleString("es-CO")}`,
+        delivery ? `🛵 Domicilio (${delivery.barrio}): $${delivery.costo.toLocaleString("es-CO")} · ${delivery.tiempo}` : "",
+        `*Total: $${grandTotal.toLocaleString("es-CO")}*`,
         address ? `📍 Dirección: ${address}` : "",
         notes ? `📝 Notas: ${notes}` : "",
       ].filter(Boolean);

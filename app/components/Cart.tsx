@@ -11,7 +11,7 @@ interface CartProps {
   isOpen: boolean;
   onClose: () => void;
   onUpdateQuantity: (id: string, qty: number) => void;
-  onPlaceOrder: (address: string, notes: string) => void;
+  onPlaceOrder: (address: string, notes: string, delivery?: { costo: number; barrio: string; tiempo: string }) => void;
   onClear: () => void;
 }
 
@@ -69,10 +69,8 @@ export default function Cart({
 
   const handleOrder = () => {
     if (items.length === 0) return;
-    const deliveryNote = delivery
-      ? `🛵 Domicilio (${barrio}): $${delivery.costo.toLocaleString("es-CO")} · ${delivery.tiempo}`
-      : "";
-    onPlaceOrder(address, [deliveryNote, notes].filter(Boolean).join("\n"));
+    const deliveryData = delivery ? { ...delivery, barrio } : undefined;
+    onPlaceOrder(address, notes, deliveryData);
     onClear();
     setAddress("");
     setBarrio("");
