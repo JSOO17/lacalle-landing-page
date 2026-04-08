@@ -733,13 +733,16 @@ export default function Home() {
             <div className="menu-item-desc">2 Burgers + 2 Papas + 2 Limonadas.</div>
             <span className="menu-item-tag new">El favorito</span>
           </div>
-          <div className="menu-item">
-            <div className="menu-item-top">
-              <div className="menu-item-name">Combo pa&apos; compartir</div>
-              <div className="menu-item-price">$45.900</div>
+          <div className="menu-item menu-item-with-photo">
+            <div style={{ position: "relative", height: 200 }}><Image src="/combos/combopacompartire.jpeg" alt="Combo pa' compartir" fill style={{ objectFit: "cover", objectPosition: "center center" }} sizes="(max-width: 768px) 100vw, 400px" /></div>
+            <div className="menu-item-body">
+              <div className="menu-item-top">
+                <div className="menu-item-name">Combo pa&apos; compartir</div>
+                <div className="menu-item-price">$45.900</div>
+              </div>
+              <div className="menu-item-desc">2 Classic + 2 Papas + 2 Limonadas.</div>
+              <span className="menu-item-tag">Para dos</span>
             </div>
-            <div className="menu-item-desc">2 Classic + 2 Papas + 2 Limonadas.</div>
-            <span className="menu-item-tag">Para dos</span>
           </div>
           <div className="menu-item">
             <div className="menu-item-top">
