@@ -46,9 +46,9 @@ export default function OtrosPlatosSection({ addItem }: Props) {
           </div>
           <span className="menu-item-tag hot">Las favoritas</span>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x12", name: "Alitas x12", price: 38900 })}>+ x12</button>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x18", name: "Alitas x18", price: 54500 })}>+ x18</button>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x24", name: "Alitas x24", price: 70500 })}>+ x24</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x12", name: "Alitas x12", price: 38900, removable: [] })}>+ x12</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x18", name: "Alitas x18", price: 54500, removable: [] })}>+ x18</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x24", name: "Alitas x24", price: 70500, removable: [] })}>+ x24</button>
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export default function OtrosPlatosSection({ addItem }: Props) {
             350gr de jugosas costillas de cerdo, bañadas en salsa BBQ de la casa, con 4 arepas &amp; papitas.
           </div>
           <span className="menu-item-tag new">De la casa</span>
-          <button className="add-to-cart-btn" onClick={() => addItem({ id: "costillas", name: "Costillas de Cerdo", price: 37700 })}>+ Agregar</button>
+          <button className="add-to-cart-btn" onClick={() => addItem({ id: "costillas", name: "Costillas de Cerdo", price: 37700, removable: ["Salsa BBQ", "Arepas"] })}>+ Agregar</button>
         </div>
 
         <div className="menu-item menu-item-with-photo">
@@ -98,7 +98,7 @@ export default function OtrosPlatosSection({ addItem }: Props) {
               Papa a la francesa en queso cheddar, tocineta parrillada, chorizo, plátano maduro, chicharrón en limón pimienta, sour cream &amp; guacamole.
             </div>
             <span className="menu-item-tag hot">La más cargada</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-callejeras", name: "Papas Callejeras", price: 33700 })}>+ Agregar</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-callejeras", name: "Papas Callejeras", price: 33700, removable: ["Queso cheddar", "Tocineta", "Chorizo", "Plátano maduro", "Chicharrón", "Sour cream", "Guacamole"] })}>+ Agregar</button>
           </div>
         </div>
 
@@ -118,7 +118,7 @@ export default function OtrosPlatosSection({ addItem }: Props) {
               <span className="flavor-tag">2 salsas de tu preferencia</span>
             </div>
             <span className="menu-item-tag">Carne o pollo</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "especiales", name: "Especiales", price: 30000 })}>+ Agregar</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "especiales", name: "Especiales", price: 30000, removable: ["Ensalada de la casa"] })}>+ Agregar</button>
           </div>
         </div>
 
@@ -138,6 +138,7 @@ export default function OtrosPlatosSection({ addItem }: Props) {
                   <span style={{ fontFamily: "var(--font-bebas)", fontSize: 18, color: "var(--amarillo)" }}>$13.000</span>
                 </div>
                 <div className="menu-item-desc">Clásico brownie caliente, con helado y salsa de arequipe.</div>
+                <button className="add-to-cart-btn" style={{ marginLeft: 0, marginTop: 8 }} onClick={() => addItem({ id: "brownie", name: "Brownie con Helado", price: 13000, isDessert: true, removable: [] })}>+ Agregar</button>
               </div>
               <div style={{ borderTop: "1px solid #1e1e1e", paddingTop: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
@@ -145,6 +146,7 @@ export default function OtrosPlatosSection({ addItem }: Props) {
                   <span style={{ fontFamily: "var(--font-bebas)", fontSize: 18, color: "var(--amarillo)" }}>$13.900</span>
                 </div>
                 <div className="menu-item-desc">Malteada de cookies &amp; Cream con crema chantilly.</div>
+                <button className="add-to-cart-btn" style={{ marginLeft: 0, marginTop: 8 }} onClick={() => addItem({ id: "malteada", name: "Malteada", price: 13900, isDessert: true, removable: [] })}>+ Agregar</button>
               </div>
             </div>
             <span className="menu-item-tag">Para cerrar</span>

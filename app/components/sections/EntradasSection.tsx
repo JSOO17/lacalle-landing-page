@@ -22,7 +22,7 @@ export default function EntradasSection({ addItem }: Props) {
           </div>
           <div className="menu-item-desc">Dedos de queso mozzarella apanados, con salsa miel mostaza.</div>
           <span className="menu-item-tag hot">Favorita</span>
-          <button className="add-to-cart-btn" onClick={() => addItem({ id: "deditos-queso", name: "Deditos de Queso", price: 20700 })}>+ Agregar</button>
+          <button className="add-to-cart-btn" onClick={() => addItem({ id: "deditos-queso", name: "Deditos de Queso", price: 20700, removable: ["Salsa miel mostaza"] })}>+ Agregar</button>
         </div>
 
         <div className="menu-item">
@@ -32,7 +32,7 @@ export default function EntradasSection({ addItem }: Props) {
           </div>
           <div className="menu-item-desc">Empanadas de carne y maíz, doradas y crujientes, acompañadas con guacamole.</div>
           <span className="menu-item-tag">Bien colombianas</span>
-          <button className="add-to-cart-btn" onClick={() => addItem({ id: "empanaditas", name: "Empanaditas", price: 17200 })}>+ Agregar</button>
+          <button className="add-to-cart-btn" onClick={() => addItem({ id: "empanaditas", name: "Empanaditas", price: 17200, removable: ["Guacamole"] })}>+ Agregar</button>
         </div>
 
         <div className="menu-item">
@@ -42,7 +42,7 @@ export default function EntradasSection({ addItem }: Props) {
           </div>
           <div className="menu-item-desc">Chicarrón carnudo, bañado en salsa BBQ &amp; con papas a la francesa.</div>
           <span className="menu-item-tag">Crocante</span>
-          <button className="add-to-cart-btn" onClick={() => addItem({ id: "chicharrones", name: "Chicharrones", price: 18000 })}>+ Agregar</button>
+          <button className="add-to-cart-btn" onClick={() => addItem({ id: "chicharrones", name: "Chicharrones", price: 18000, removable: ["Salsa BBQ"] })}>+ Agregar</button>
         </div>
 
         <div className="menu-item menu-item-with-photo">
@@ -56,7 +56,7 @@ export default function EntradasSection({ addItem }: Props) {
             </div>
             <div className="menu-item-desc">Papitas a la francesa cargadas de pulled pork, salsa BBQ &amp; mayo ajo.</div>
             <span className="menu-item-tag">Cargadas</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-pulled-pork", name: "Papas Pulled Pork", price: 15900 })}>+ Agregar</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-pulled-pork", name: "Papas Pulled Pork", price: 15900, removable: ["Pulled pork", "Salsa BBQ", "Mayo ajo"] })}>+ Agregar</button>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ export default function EntradasSection({ addItem }: Props) {
             </div>
             <div className="menu-item-desc">Papitas a la francesa, queso cheddar, tocineta &amp; salsa BBQ.</div>
             <span className="menu-item-tag">Clásica</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-cheddar", name: "Papas Cheddar & Tocineta", price: 15900 })}>+ Agregar</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-cheddar", name: "Papas Cheddar & Tocineta", price: 15900, removable: ["Queso cheddar", "Tocineta", "Salsa BBQ"] })}>+ Agregar</button>
           </div>
         </div>
 
@@ -86,7 +86,7 @@ export default function EntradasSection({ addItem }: Props) {
             </div>
             <div className="menu-item-desc">Papa a la francesa, queso fundido &amp; maduritos.</div>
             <span className="menu-item-tag">Sabor & contraste</span>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-mayo-ajo", name: "Papas Mayo Ajo", price: 15900 })}>+ Agregar</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "papas-mayo-ajo", name: "Papas Mayo Ajo", price: 15900, removable: ["Queso fundido", "Plátano maduro"] })}>+ Agregar</button>
           </div>
         </div>
 

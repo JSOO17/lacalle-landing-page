@@ -63,28 +63,34 @@ html { scroll-behavior: smooth; }
 
 /* ── CARD hover lift ── */
 .menu-item {
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: background 0.2s ease, transform 0.22s ease, box-shadow 0.22s ease;
 }
 .menu-item:hover {
   background: #181818;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
+.menu-item:active { transform: translateY(-1px); }
+
 .envenena-card {
-  transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
 }
 .envenena-card:hover {
   border-color: #D62828;
   background: #140808;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(214,40,40,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(214,40,40,0.2);
 }
+.envenena-card:active { transform: translateY(-1px); }
+
 .bebida-card {
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 .bebida-card:hover {
-  border-color: #444;
+  border-color: #3a3a3a;
   transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  background: #212121;
 }
 
 
@@ -110,11 +116,17 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 18px 32px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   position: sticky;
   top: 0;
-  background: rgba(15,15,15,0.97);
+  background: rgba(15,15,15,0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index: 99;
+  transition: box-shadow 0.3s ease;
+}
+nav.scrolled {
+  box-shadow: 0 2px 24px rgba(0,0,0,0.6);
 }
 .nav-logo {
   font-family: var(--font-bebas), "Bebas Neue", sans-serif;
@@ -135,9 +147,15 @@ nav {
   text-transform: uppercase;
   color: var(--texto-suave);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
+  padding-bottom: 2px;
 }
-.nav-links li a:hover { color: var(--amarillo); }
+.nav-links li a:hover { color: var(--blanco); }
+.nav-links li a:focus-visible {
+  outline: 2px solid var(--amarillo);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
 
 /* HERO */
 .hero {
@@ -187,13 +205,26 @@ nav {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 14px 32px;
+  padding: 14px 36px;
   border: none;
   cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.2s, transform 0.1s;
+  border-radius: 3px;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.3);
 }
-.btn-primary:hover { background: #ffd730; transform: scale(1.02); }
+.btn-primary:hover {
+  background: #ffe03a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245,197,24,0.35);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.3);
+}
+.btn-primary:focus-visible {
+  outline: 2px solid var(--amarillo);
+  outline-offset: 4px;
+}
 .hero-img { flex: 1; position: relative; max-width: 460px; height: 340px; }
 .hero-burger-photo {
   width: 100%;
@@ -290,7 +321,7 @@ nav {
   border-radius: 8px;
   overflow: hidden;
 }
-.menu-item { background: var(--negro); padding: 24px; transition: background 0.2s; }
+.menu-item { background: var(--negro); padding: 24px; transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease; }
 .menu-item:hover { background: #181818; }
 .menu-item-top {
   display: flex;
@@ -332,18 +363,29 @@ nav {
 .menu-item-tag.new { background: rgba(245,197,24,0.1); color: var(--amarillo); border-color: rgba(245,197,24,0.3); }
 .menu-item-tag.fav { background: rgba(255,165,0,0.12); color: #FFA500; border-color: rgba(255,165,0,0.3); }
 .menu-item-with-photo { padding: 0; overflow: hidden; }
+.menu-item-with-photo img {
+  transition: transform 0.45s ease;
+}
+.menu-item-with-photo:hover img { transform: scale(1.05); }
 .menu-item-photo { width: 100%; height: 200px; object-fit: cover; display: block; }
 .menu-item-body { padding: 16px 24px 20px; }
 .add-to-cart-btn {
   display: inline-flex; align-items: center; gap: 6px;
-  margin: 10px; padding: 7px 16px;
+  margin: 10px; padding: 8px 18px;
   background: transparent; border: 1px solid var(--amarillo);
   color: var(--amarillo); border-radius: 4px;
   font-family: var(--font-barlow-condensed); font-weight: 700;
   font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase;
-  cursor: pointer; transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
 }
-.add-to-cart-btn:hover { background: var(--amarillo); color: var(--negro); }
+.add-to-cart-btn:hover {
+  background: var(--amarillo);
+  color: var(--negro);
+  box-shadow: 0 4px 14px rgba(245,197,24,0.3);
+}
+.add-to-cart-btn:active { transform: scale(0.96); }
+.add-to-cart-btn:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 3px; }
 
 /* ENVENENADAS */
 .envenenadas-section {
@@ -381,9 +423,13 @@ nav {
   border-radius: 8px;
   overflow: hidden;
   position: relative;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+.envenena-card img {
+  transition: transform 0.45s ease;
 }
 .envenena-card:hover { border-color: #D62828; background: #140808; }
+.envenena-card:hover img { transform: scale(1.06); }
 .envenena-card-photo { width: 100%; height: 200px; object-fit: cover; object-position: center 30%; display: block; }
 .envenena-card-body { padding: 20px; }
 .envenena-card-no-photo { padding: 24px 20px; }
@@ -448,22 +494,44 @@ nav {
   justify-content: center;
   font-size: 64px;
   background: var(--gris2);
-  transition: opacity 0.2s;
+  cursor: pointer;
 }
-.galeria-item:hover { opacity: 0.88; }
+.galeria-item img {
+  transition: transform 0.5s ease;
+}
+.galeria-item:hover img { transform: scale(1.07); }
+
+/* gradient overlay that slides up on hover */
+.galeria-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.galeria-item:hover::after { opacity: 1; }
+
 .galeria-item.tall { grid-row: 1 / 3; }
 .galeria-photo { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
 .galeria-label {
   position: absolute;
-  bottom: 10px;
-  left: 12px;
+  bottom: 14px;
+  left: 16px;
+  z-index: 1;
   font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+  color: #fff;
+  transform: translateY(4px);
+  transition: transform 0.28s ease, opacity 0.28s ease;
+  opacity: 0.85;
+}
+.galeria-item:hover .galeria-label {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /* INFO */
@@ -474,6 +542,12 @@ nav {
   border: 1px solid #333;
   border-radius: 8px;
   border-left: 3px solid var(--amarillo);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.info-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border-color: #444;
 }
 .info-box-label {
   font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
@@ -487,34 +561,292 @@ nav {
 .info-box-content { font-size: 14px; color: var(--texto-suave); line-height: 1.8; }
 .info-box-content strong { color: var(--blanco); }
 
-/* FOOTER */
-footer {
-  border-top: 1px solid #2a2a2a;
-  padding: 28px 32px;
-  display: flex;
-  justify-content: space-between;
+/* FOOTER — replaced by .footer-new */
+
+/* ── HAMBURGER BUTTON ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
 }
-.footer-logo {
+.nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--blanco);
+  border-radius: 2px;
+  transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+  transform-origin: center;
+}
+.hamburger-line.open:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger-line.open:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger-line.open:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE NAV DRAWER ── */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 98;
+  backdrop-filter: blur(4px);
+  animation: fade-in 0.2s ease;
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(320px, 85vw);
+  height: 100dvh;
+  background: #0d0d0d;
+  border-right: 1px solid #1e1e1e;
+  z-index: 99;
+  padding: 80px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transform: translateX(-100%);
+  transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+.mobile-nav-drawer.open { transform: translateX(0); }
+
+.mobile-nav-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.mobile-nav-links li {
+  animation: slide-in 0.3s ease both;
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.mobile-nav-links a {
+  display: block;
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 32px;
+  letter-spacing: 3px;
+  color: #666;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+.mobile-nav-links a:hover,
+.mobile-nav-links a.active { color: var(--amarillo); transform: translateX(6px); }
+
+.mobile-nav-phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texto-suave);
+  text-decoration: none;
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 14px 0;
+  border-top: 1px solid #1e1e1e;
+  transition: color 0.2s;
+}
+.mobile-nav-phone:hover { color: var(--amarillo); }
+
+/* ── BEBIDAS nuevos estilos ── */
+.bebida-subheader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.bebida-subheader-label {
   font-family: var(--font-bebas), "Bebas Neue", sans-serif;
   font-size: 22px;
   letter-spacing: 3px;
-  color: #444;
+  color: var(--blanco);
+  white-space: nowrap;
 }
-.footer-logo span { color: #555; }
-.footer-copy { font-size: 12px; color: #444; letter-spacing: 1px; text-transform: uppercase; }
-.footer-social { display: flex; gap: 16px; }
-.footer-social a {
-  font-family: var(--font-barlow-condensed), "Barlow Condensed", sans-serif;
-  font-size: 12px;
+.bebida-subheader-badge {
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
+  color: var(--amarillo);
+  background: rgba(245,197,24,0.1);
+  border: 1px solid rgba(245,197,24,0.25);
+  padding: 3px 10px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.bebida-subheader-line {
+  flex: 1;
+  height: 1px;
+  background: #222;
+}
+.bebidas-grid-cocteles {
+  grid-template-columns: repeat(4, 1fr);
+}
+.bebida-card-photo {
+  padding: 0;
+  overflow: hidden;
+}
+.bebida-card-img-wrap {
+  position: relative;
+  height: 160px;
+}
+.bebida-card-img-wrap img {
+  transition: transform 0.4s ease;
+}
+.bebida-card-photo:hover .bebida-card-img-wrap img { transform: scale(1.06); }
+.bebida-card-body {
+  padding: 14px 16px 16px;
+}
+.bebida-card-minimal {
+  background: transparent;
+  border-color: #1e1e1e;
+  padding: 14px 16px;
+}
+.bebida-card-minimal:hover { border-color: #2e2e2e; background: #141414; }
+.bebidas-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.bebidas-grid-sm {
+  grid-template-columns: repeat(2, 1fr);
+}
+.bebida-price-sm {
+  font-size: 16px;
+}
+
+/* ── FOOTER nuevo ── */
+.footer-new {
+  background: #080808;
+  border-top: 1px solid #181818;
+  margin-top: 0;
+}
+.footer-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 32px 40px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-brand { }
+.footer-socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+.footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #141414;
+  border: 1px solid #222;
+  color: #666;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.footer-social-icon:hover {
+  background: #1e1e1e;
+  color: var(--blanco);
+  border-color: #333;
+  transform: translateY(-2px);
+}
+.footer-social-wa:hover { color: #25D366; border-color: rgba(37,211,102,0.3); }
+.footer-col { }
+.footer-col-title {
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amarillo);
+  margin-bottom: 16px;
+}
+.footer-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-nav-list a {
+  font-size: 14px;
   color: #555;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.18s ease, transform 0.18s ease;
+  display: inline-block;
 }
-.footer-social a:hover { color: var(--amarillo); }
+.footer-nav-list a:hover { color: var(--blanco); transform: translateX(4px); }
+.footer-hours-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-hours-list li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #555;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #141414;
+}
+.footer-hours-day { color: #777; }
+.footer-hours-time { color: var(--texto-suave); font-variant-numeric: tabular-nums; }
+.footer-phone {
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--amarillo);
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.2s;
+}
+.footer-phone:hover { opacity: 0.8; }
+.footer-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  border-top: 1px solid #141414;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: #333;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.footer-bottom-dot { color: #2a2a2a; }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -539,7 +871,13 @@ footer {
   .envenenadas-title { font-size: 36px; }
   .envenenadas-grid { grid-template-columns: 1fr; gap: 10px; }
 
+  .nav-hamburger { display: flex; }
   .bebidas-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .bebidas-grid-cocteles { grid-template-columns: 1fr 1fr; }
+  .bebidas-two-col { grid-template-columns: 1fr; gap: 32px; }
+  .bebidas-grid-sm { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px 32px; }
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; padding: 16px 20px; }
 
   .galeria-grid {
     grid-template-columns: 1fr 1fr;
@@ -597,4 +935,110 @@ footer {
   font-family: var(--font-bebas), "Bebas Neue", sans-serif;
   font-size: 16px;
   color: var(--amarillo);
+}
+
+/* ── LICORES TABLE ── */
+.licores-table {
+  border: 1px solid #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.licores-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 24px;
+  padding: 10px 16px;
+  background: #141414;
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #555;
+}
+.licores-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 24px;
+  padding: 11px 16px;
+  border-top: 1px solid #141414;
+  align-items: center;
+  transition: background 0.15s;
+}
+.licores-row:hover { background: #0d0d0d; }
+.licores-name {
+  font-family: var(--font-barlow-condensed), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--blanco);
+}
+.licores-price {
+  font-family: var(--font-bebas), "Bebas Neue", sans-serif;
+  font-size: 1rem;
+  color: var(--amarillo);
+  text-align: right;
+  min-width: 80px;
+}
+
+/* ── STAGGER entrance for grid items ── */
+.menu-grid .menu-item:nth-child(1) { animation-delay: 0ms; }
+.menu-grid .menu-item:nth-child(2) { animation-delay: 40ms; }
+.menu-grid .menu-item:nth-child(3) { animation-delay: 80ms; }
+.menu-grid .menu-item:nth-child(4) { animation-delay: 120ms; }
+.menu-grid .menu-item:nth-child(5) { animation-delay: 160ms; }
+.menu-grid .menu-item:nth-child(6) { animation-delay: 200ms; }
+
+/* ── CART BUTTON pulse when item added ── */
+@keyframes cart-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.15); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+.cart-btn-pop { animation: cart-pop 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+
+/* ── STRIPE pause on hover ── */
+.stripe:hover .stripe-inner { animation-play-state: paused; }
+
+/* ── SECTION NUMBER glow on hover ── */
+.section-header:hover .section-num {
+  text-shadow: 0 0 12px rgba(245,197,24,0.5);
+  transition: text-shadow 0.3s ease;
+}
+
+/* ── FOOTER social link underline slide ── */
+.footer-social a {
+  position: relative;
+}
+.footer-social a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--amarillo);
+  transition: width 0.25s ease;
+}
+.footer-social a:hover::after { width: 100%; }
+
+/* ── FOCUS VISIBLE — accesibilidad teclado ── */
+:focus-visible {
+  outline: 2px solid var(--amarillo);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+button:focus-visible, a:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 3px; }
+
+/* ── REDUCED MOTION — respeta preferencia del sistema ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fade-up { opacity: 1; transform: none; }
+  .stripe-inner { animation: none; }
 }

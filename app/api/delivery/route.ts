@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import rates from "../../../data/delivery-rates.json";
 
-interface DeliveryRate {
-  costo: number;
-  tiempo: string;
-}
-
+interface DeliveryRate { costo: number; tiempo: string; }
 interface RatesMap {
   [key: string]: DeliveryRate | string;
   _default: DeliveryRate;
 }
-
-// Cargado una vez por instancia de función — nunca llega al cliente
-// Para migrar a Vercel KV: reemplaza esta importación con una consulta a KV
-import rates from "../../../data/delivery-rates.json";
 
 export async function GET(request: NextRequest) {
   const barrio = request.nextUrl.searchParams.get("barrio")?.toLowerCase().trim();
@@ -22,23 +15,20 @@ export async function GET(request: NextRequest) {
   }
 
   const ratesMap = rates as unknown as RatesMap;
+  const SKIP = new Set(["_comment", "_default"]);
 
-  // Búsqueda exacta primero, luego parcial
   let rate: DeliveryRate | null = null;
 
-  if (barrio in ratesMap && barrio !== "_comment") {
+  // Exacto
+  if (!SKIP.has(barrio) && barrio in ratesMap) {
     rate = ratesMap[barrio] as DeliveryRate;
   } else {
-    // Búsqueda parcial: "pobl" encuentra "el poblado"
+    // Parcial: "pobl" encuentra "el poblado"
     const match = Object.keys(ratesMap).find(
-      (k) => k !== "_comment" && k !== "_default" && k.includes(barrio)
+      (k) => !SKIP.has(k) && (k.includes(barrio) || barrio.includes(k))
     );
     if (match) rate = ratesMap[match] as DeliveryRate;
   }
 
-  if (!rate) {
-    rate = ratesMap._default;
-  }
-
-  return NextResponse.json(rate);
+  return NextResponse.json(rate ?? ratesMap._default);
 }

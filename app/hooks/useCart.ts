@@ -1,21 +1,28 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
 
+export interface ItemCustomization {
+  sin: string[];   // ingredientes a quitar
+  notas: string;   // nota libre
+}
+
 export interface CartItem {
   id: string;
   name: string;
   price: number;
   quantity: number;
+  customization?: ItemCustomization;
+  removable?: string[];  // specific ingredients of this item that can be removed
+  isDessert?: boolean;   // desserts skip the toppings/adicionales section
 }
 
-const WHATSAPP_NUMBER = "573215307022";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573215307022";
 const CART_KEY = "lacalle_cart";
 
 export function useCart() {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Cargar carrito guardado al iniciar
   useEffect(() => {
     try {
       const saved = localStorage.getItem(CART_KEY);
@@ -23,7 +30,6 @@ export function useCart() {
     } catch {}
   }, []);
 
-  // Guardar en localStorage cada vez que cambian los items
   useEffect(() => {
     try {
       localStorage.setItem(CART_KEY, JSON.stringify(items));
@@ -51,24 +57,29 @@ export function useCart() {
     );
   }, []);
 
+  const updateCustomization = useCallback((id: string, customization: ItemCustomization) => {
+    setItems((prev) =>
+      prev.map((i) => (i.id === id ? { ...i, customization } : i))
+    );
+  }, []);
+
   const clear = useCallback(() => setItems([]), []);
 
   const total = items.reduce((s, i) => s + i.price * i.quantity, 0);
   const count = items.reduce((s, i) => s + i.quantity, 0);
 
-  /**
-   * SCALABILITY POINT:
-   * Para pasar a domicilios propios, reemplaza esta función con un
-   * POST a tu API: fetch("/api/orders", { method: "POST", body: JSON.stringify({ items, address, notes }) })
-   */
   const placeOrder = useCallback(
-    (address: string, notes: string, delivery?: { costo: number; barrio: string; tiempo: string }) => {
-      const lines = items
-        .map(
-          (i) =>
-            `• ${i.quantity}x ${i.name} — $${(i.price * i.quantity).toLocaleString("es-CO")}`
-        )
-        .join("\n");
+    (address: string, globalNotes: string, delivery?: { costo: number; barrio: string; tiempo: string }) => {
+      const lines = items.map((i) => {
+        let line = `• ${i.quantity}x ${i.name} — $${(i.price * i.quantity).toLocaleString("es-CO")}`;
+        if (i.customization?.sin?.length) {
+          line += `\n  ↳ Sin: ${i.customization.sin.join(", ")}`;
+        }
+        if (i.customization?.notas?.trim()) {
+          line += `\n  ↳ Nota: ${i.customization.notas.trim()}`;
+        }
+        return line;
+      }).join("\n");
 
       const grandTotal = total + (delivery?.costo ?? 0);
 
@@ -81,12 +92,11 @@ export function useCart() {
         delivery ? `🛵 Domicilio (${delivery.barrio}): $${delivery.costo.toLocaleString("es-CO")} · ${delivery.tiempo}` : "",
         `*Total: $${grandTotal.toLocaleString("es-CO")}*`,
         address ? `📍 Dirección: ${address}` : "",
-        notes ? `📝 Notas: ${notes}` : "",
+        globalNotes ? `📝 Notas generales: ${globalNotes}` : "",
       ].filter(Boolean);
 
-      const message = parts.join("\n");
       window.open(
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(parts.join("\n"))}`,
         "_blank"
       );
     },
@@ -97,6 +107,7 @@ export function useCart() {
     items,
     addItem,
     updateQuantity,
+    updateCustomization,
     clear,
     total,
     count,

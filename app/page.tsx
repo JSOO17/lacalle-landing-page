@@ -25,7 +25,7 @@ export default function Home() {
   const [storeOpen, setStoreOpen] = useState(false);
   const [closeTime, setCloseTime] = useState("");
 
-  const { items, addItem, updateQuantity, clear, total, count, isOpen, setIsOpen, placeOrder } = useCart();
+  const { items, addItem, updateQuantity, updateCustomization, clear, total, count, isOpen, setIsOpen, placeOrder } = useCart();
 
   // Store open/closed indicator
   useEffect(() => {
@@ -89,8 +89,10 @@ export default function Home() {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onUpdateQuantity={updateQuantity}
+        onUpdateCustomization={updateCustomization}
         onPlaceOrder={placeOrder}
         onClear={clear}
+        onAddItem={addItem}
       />
       <CartButton count={count} total={total} onClick={() => setIsOpen(true)} />
     </>
