@@ -92,7 +92,6 @@ export default function Home() {
         onUpdateCustomization={updateCustomization}
         onPlaceOrder={placeOrder}
         onClear={clear}
-        onAddItem={addItem}
       />
       <CartButton count={count} total={total} onClick={() => setIsOpen(true)} />
     </>

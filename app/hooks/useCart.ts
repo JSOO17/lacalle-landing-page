@@ -1,9 +1,16 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
 
+export interface ItemExtra {
+  id: string;
+  name: string;
+  price: number;
+}
+
 export interface ItemCustomization {
   sin: string[];      // ingredientes a quitar
   salsas?: string[];  // salsas elegidas (alitas)
+  extras?: ItemExtra[]; // adicionales asociados a este plato
   notas: string;      // nota libre
 }
 
@@ -67,7 +74,10 @@ export function useCart() {
 
   const clear = useCallback(() => setItems([]), []);
 
-  const total = items.reduce((s, i) => s + i.price * i.quantity, 0);
+  const total = items.reduce((s, i) => {
+    const extrasPrice = (i.customization?.extras ?? []).reduce((es, e) => es + e.price, 0);
+    return s + (i.price + extrasPrice) * i.quantity;
+  }, 0);
   const count = items.reduce((s, i) => s + i.quantity, 0);
 
   const placeOrder = useCallback(
@@ -79,6 +89,9 @@ export function useCart() {
         }
         if (i.customization?.salsas?.length) {
           line += `\n  ↳ Salsas: ${i.customization.salsas.join(", ")}`;
+        }
+        if (i.customization?.extras?.length) {
+          line += `\n  ↳ Adicionales: ${i.customization.extras.map(e => `${e.name} +$${e.price.toLocaleString("es-CO")}`).join(", ")}`;
         }
         if (i.customization?.notas?.trim()) {
           line += `\n  ↳ Nota: ${i.customization.notas.trim()}`;
