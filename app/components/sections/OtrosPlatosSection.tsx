@@ -46,9 +46,9 @@ export default function OtrosPlatosSection({ addItem }: Props) {
           </div>
           <span className="menu-item-tag hot">Las favoritas</span>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x12", name: "Alitas x12", price: 38900, removable: [] })}>+ x12</button>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x18", name: "Alitas x18", price: 54500, removable: [] })}>+ x18</button>
-            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x24", name: "Alitas x24", price: 70500, removable: [] })}>+ x24</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x12", name: "Alitas x12", price: 38900, removable: [], salsasMax: 2 })}>+ x12</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x18", name: "Alitas x18", price: 54500, removable: [], salsasMax: 3 })}>+ x18</button>
+            <button className="add-to-cart-btn" onClick={() => addItem({ id: "alitas-x24", name: "Alitas x24", price: 70500, removable: [], salsasMax: 4 })}>+ x24</button>
           </div>
         </div>
 

@@ -2,8 +2,9 @@
 import { useState, useCallback, useEffect } from "react";
 
 export interface ItemCustomization {
-  sin: string[];   // ingredientes a quitar
-  notas: string;   // nota libre
+  sin: string[];      // ingredientes a quitar
+  salsas?: string[];  // salsas elegidas (alitas)
+  notas: string;      // nota libre
 }
 
 export interface CartItem {
@@ -14,6 +15,7 @@ export interface CartItem {
   customization?: ItemCustomization;
   removable?: string[];  // specific ingredients of this item that can be removed
   isDessert?: boolean;   // desserts skip the toppings/adicionales section
+  salsasMax?: number;    // max sauces to pick (alitas: x12→2, x18→3, x24→4)
 }
 
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573215307022";
@@ -74,6 +76,9 @@ export function useCart() {
         let line = `• ${i.quantity}x ${i.name} — $${(i.price * i.quantity).toLocaleString("es-CO")}`;
         if (i.customization?.sin?.length) {
           line += `\n  ↳ Sin: ${i.customization.sin.join(", ")}`;
+        }
+        if (i.customization?.salsas?.length) {
+          line += `\n  ↳ Salsas: ${i.customization.salsas.join(", ")}`;
         }
         if (i.customization?.notas?.trim()) {
           line += `\n  ↳ Nota: ${i.customization.notas.trim()}`;

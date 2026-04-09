@@ -38,6 +38,8 @@ const BARRIOS = [
 ];
 
 
+const ALITAS_SALSAS = ["BBQ", "BBQ de Uchuva", "BBQ Picante", "Miel Ajo", "Miel Mostaza", "Limón & Pimienta"];
+
 const TOPPINGS_EXTRA = [
   { id: "extra-carne", name: "Carne de hamburguesa", price: 9000 },
   { id: "extra-tocineta", name: "Tocineta 1 unid", price: 3500 },
@@ -71,26 +73,30 @@ function Chip({
   label,
   selected,
   onClick,
+  disabled = false,
 }: {
   label: string;
   selected: boolean;
   onClick: () => void;
+  disabled?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       style={{
         padding: "5px 12px",
         borderRadius: 20,
         border: `1px solid ${selected ? "var(--amarillo)" : "#2a2a2a"}`,
         background: selected ? "rgba(245,197,24,0.12)" : "transparent",
-        color: selected ? "var(--amarillo)" : "#666",
+        color: selected ? "var(--amarillo)" : disabled ? "#333" : "#666",
         fontSize: "0.78rem",
         fontFamily: "var(--font-barlow-condensed)",
         fontWeight: 600,
         letterSpacing: 0.5,
-        cursor: "pointer",
+        cursor: disabled ? "not-allowed" : "pointer",
+        opacity: disabled ? 0.4 : 1,
         transition: "all 0.15s ease",
         whiteSpace: "nowrap",
       }}
@@ -285,7 +291,20 @@ export default function Cart({
   const toggleSinForItem = (itemId: string, ing: string, currentCustom?: ItemCustomization) => {
     const currentSin = currentCustom?.sin ?? [];
     const sin = currentSin.includes(ing) ? currentSin.filter((s) => s !== ing) : [...currentSin, ing];
-    onUpdateCustomization(itemId, { sin, notas: currentCustom?.notas ?? "" });
+    onUpdateCustomization(itemId, { sin, salsas: currentCustom?.salsas, notas: currentCustom?.notas ?? "" });
+  };
+
+  const toggleSalsaForItem = (itemId: string, salsa: string, max: number, currentCustom?: ItemCustomization) => {
+    const current = currentCustom?.salsas ?? [];
+    let salsas: string[];
+    if (current.includes(salsa)) {
+      salsas = current.filter((s) => s !== salsa);
+    } else if (current.length < max) {
+      salsas = [...current, salsa];
+    } else {
+      return; // ya llegó al límite, no hace nada
+    }
+    onUpdateCustomization(itemId, { sin: currentCustom?.sin ?? [], salsas, notas: currentCustom?.notas ?? "" });
   };
 
   const handleOrder = () => {
@@ -357,8 +376,9 @@ export default function Cart({
                 const isExpanded = expandedItem === item.id;
                 const custom = item.customization;
                 const hasSin = (custom?.sin?.length ?? 0) > 0;
+                const hasSalsas = (custom?.salsas?.length ?? 0) > 0;
                 const hasNotas = !!custom?.notas?.trim();
-                const hasCustom = hasSin || hasNotas;
+                const hasCustom = hasSin || hasSalsas || hasNotas;
                 const canPersonalize = item.removable !== undefined && !item.isDessert;
                 return (
                   <div key={item.id} style={{ borderBottom: "1px solid #1a1a1a" }}>
@@ -401,6 +421,33 @@ export default function Cart({
                     {/* Per-item customization panel */}
                     {isExpanded && canPersonalize && (
                       <div style={{ padding: "0 0 14px 0" }}>
+                        {item.salsasMax && (
+                          <>
+                            <SectionLabel>
+                              Elige tus salsas ({custom?.salsas?.length ?? 0}/{item.salsasMax})
+                            </SectionLabel>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                              {ALITAS_SALSAS.map((salsa) => {
+                                const selected = custom?.salsas?.includes(salsa) ?? false;
+                                const maxed = (custom?.salsas?.length ?? 0) >= item.salsasMax! && !selected;
+                                return (
+                                  <Chip
+                                    key={salsa}
+                                    label={salsa}
+                                    selected={selected}
+                                    onClick={() => toggleSalsaForItem(item.id, salsa, item.salsasMax!, custom)}
+                                    disabled={maxed}
+                                  />
+                                );
+                              })}
+                            </div>
+                            {(custom?.salsas?.length ?? 0) < item.salsasMax && (
+                              <div style={{ fontSize: "0.72rem", color: "#555", marginBottom: 10, fontFamily: "var(--font-barlow-condensed)", letterSpacing: 1 }}>
+                                Faltan {item.salsasMax - (custom?.salsas?.length ?? 0)} por elegir
+                              </div>
+                            )}
+                          </>
+                        )}
                         {item.removable && item.removable.length > 0 && (
                           <>
                             <SectionLabel>Sin ingredientes</SectionLabel>
