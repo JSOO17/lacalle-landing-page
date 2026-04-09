@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { CartItem, ItemCustomization } from "../hooks/useCart";
+import { CartItem, ItemCustomization, ItemExtra } from "../hooks/useCart";
 
 const ADDRESS_KEY = "lacalle_address";
 const BARRIO_KEY  = "lacalle_barrio";
@@ -66,7 +66,6 @@ interface CartProps {
   onUpdateCustomization: (id: string, customization: ItemCustomization) => void;
   onPlaceOrder: (address: string, notes: string, delivery?: { costo: number; barrio: string; tiempo: string }) => void;
   onClear: () => void;
-  onAddItem: (item: Omit<CartItem, "quantity">) => void;
 }
 
 function Chip({
@@ -249,7 +248,6 @@ export default function Cart({
   onUpdateCustomization,
   onPlaceOrder,
   onClear,
-  onAddItem,
 }: CartProps) {
   const [address, setAddress] = useState("");
   const [barrio, setBarrio] = useState("");
@@ -291,7 +289,15 @@ export default function Cart({
   const toggleSinForItem = (itemId: string, ing: string, currentCustom?: ItemCustomization) => {
     const currentSin = currentCustom?.sin ?? [];
     const sin = currentSin.includes(ing) ? currentSin.filter((s) => s !== ing) : [...currentSin, ing];
-    onUpdateCustomization(itemId, { sin, salsas: currentCustom?.salsas, notas: currentCustom?.notas ?? "" });
+    onUpdateCustomization(itemId, { sin, salsas: currentCustom?.salsas, extras: currentCustom?.extras, notas: currentCustom?.notas ?? "" });
+  };
+
+  const toggleExtraForItem = (itemId: string, extra: ItemExtra, currentCustom?: ItemCustomization) => {
+    const current = currentCustom?.extras ?? [];
+    const extras = current.some((e) => e.id === extra.id)
+      ? current.filter((e) => e.id !== extra.id)
+      : [...current, extra];
+    onUpdateCustomization(itemId, { sin: currentCustom?.sin ?? [], salsas: currentCustom?.salsas, extras, notas: currentCustom?.notas ?? "" });
   };
 
   const toggleSalsaForItem = (itemId: string, salsa: string, max: number, currentCustom?: ItemCustomization) => {
@@ -375,10 +381,13 @@ export default function Cart({
               {items.map((item) => {
                 const isExpanded = expandedItem === item.id;
                 const custom = item.customization;
+                const extrasPrice = (custom?.extras ?? []).reduce((s, e) => s + e.price, 0);
+                const lineTotal = (item.price + extrasPrice) * item.quantity;
                 const hasSin = (custom?.sin?.length ?? 0) > 0;
                 const hasSalsas = (custom?.salsas?.length ?? 0) > 0;
+                const hasExtras = (custom?.extras?.length ?? 0) > 0;
                 const hasNotas = !!custom?.notas?.trim();
-                const hasCustom = hasSin || hasSalsas || hasNotas;
+                const hasCustom = hasSin || hasSalsas || hasExtras || hasNotas;
                 const canPersonalize = item.removable !== undefined && !item.isDessert;
                 return (
                   <div key={item.id} style={{ borderBottom: "1px solid #1a1a1a" }}>
@@ -390,8 +399,13 @@ export default function Cart({
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 3 }}>
                           <span style={{ fontSize: "0.8rem", color: "var(--amarillo)" }}>
-                            ${(item.price * item.quantity).toLocaleString("es-CO")}
+                            ${lineTotal.toLocaleString("es-CO")}
                           </span>
+                          {hasExtras && (
+                            <span style={{ fontSize: "0.7rem", color: "#666", fontFamily: "var(--font-barlow-condensed)" }}>
+                              {custom!.extras!.map(e => `+${e.name}`).join(" · ")}
+                            </span>
+                          )}
                           {canPersonalize && (
                             <button
                               type="button"
@@ -418,36 +432,43 @@ export default function Cart({
                       </div>
                     </div>
 
-                    {/* Per-item customization panel */}
+                    {/* Salsas siempre visibles para alitas */}
+                    {item.salsasMax && (
+                      <div style={{ padding: "0 0 12px 0" }}>
+                        {(custom?.salsas?.length ?? 0) < item.salsasMax && (
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                            <SectionLabel>Elige tus salsas</SectionLabel>
+                            <span style={{ fontFamily: "var(--font-barlow-condensed)", fontSize: "0.75rem", fontWeight: 700, letterSpacing: 1, color: "#555" }}>
+                              {custom?.salsas?.length ?? 0}/{item.salsasMax}
+                            </span>
+                          </div>
+                        )}
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: (custom?.salsas?.length ?? 0) < item.salsasMax ? 6 : 0 }}>
+                          {ALITAS_SALSAS.map((salsa) => {
+                            const selected = custom?.salsas?.includes(salsa) ?? false;
+                            const maxed = (custom?.salsas?.length ?? 0) >= item.salsasMax! && !selected;
+                            return (
+                              <Chip
+                                key={salsa}
+                                label={salsa}
+                                selected={selected}
+                                onClick={() => toggleSalsaForItem(item.id, salsa, item.salsasMax!, custom)}
+                                disabled={maxed}
+                              />
+                            );
+                          })}
+                        </div>
+                        {(custom?.salsas?.length ?? 0) < item.salsasMax && (
+                          <div style={{ fontSize: "0.71rem", color: "#e07b00", fontFamily: "var(--font-barlow-condensed)", letterSpacing: 1, marginTop: 4 }}>
+                            ● Faltan {item.salsasMax - (custom?.salsas?.length ?? 0)} salsa{item.salsasMax - (custom?.salsas?.length ?? 0) > 1 ? "s" : ""} por elegir
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Per-item customization panel (opcional: sin ingredientes + notas) */}
                     {isExpanded && canPersonalize && (
                       <div style={{ padding: "0 0 14px 0" }}>
-                        {item.salsasMax && (
-                          <>
-                            <SectionLabel>
-                              Elige tus salsas ({custom?.salsas?.length ?? 0}/{item.salsasMax})
-                            </SectionLabel>
-                            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
-                              {ALITAS_SALSAS.map((salsa) => {
-                                const selected = custom?.salsas?.includes(salsa) ?? false;
-                                const maxed = (custom?.salsas?.length ?? 0) >= item.salsasMax! && !selected;
-                                return (
-                                  <Chip
-                                    key={salsa}
-                                    label={salsa}
-                                    selected={selected}
-                                    onClick={() => toggleSalsaForItem(item.id, salsa, item.salsasMax!, custom)}
-                                    disabled={maxed}
-                                  />
-                                );
-                              })}
-                            </div>
-                            {(custom?.salsas?.length ?? 0) < item.salsasMax && (
-                              <div style={{ fontSize: "0.72rem", color: "#555", marginBottom: 10, fontFamily: "var(--font-barlow-condensed)", letterSpacing: 1 }}>
-                                Faltan {item.salsasMax - (custom?.salsas?.length ?? 0)} por elegir
-                              </div>
-                            )}
-                          </>
-                        )}
                         {item.removable && item.removable.length > 0 && (
                           <>
                             <SectionLabel>Sin ingredientes</SectionLabel>
@@ -463,12 +484,40 @@ export default function Cart({
                             </div>
                           </>
                         )}
+                        <SectionLabel>Adicionales</SectionLabel>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 12 }}>
+                          {TOPPINGS_EXTRA.map((t) => {
+                            const selected = custom?.extras?.some((e) => e.id === t.id) ?? false;
+                            return (
+                              <button
+                                key={t.id}
+                                type="button"
+                                onClick={() => toggleExtraForItem(item.id, t, custom)}
+                                style={{
+                                  display: "flex", alignItems: "center", gap: 5,
+                                  padding: "5px 10px", borderRadius: 6,
+                                  border: `1px solid ${selected ? "rgba(245,197,24,0.4)" : "#2a2a2a"}`,
+                                  background: selected ? "rgba(245,197,24,0.08)" : "#141414",
+                                  color: selected ? "var(--amarillo)" : "#777",
+                                  fontSize: "0.78rem",
+                                  fontFamily: "var(--font-barlow-condensed)",
+                                  fontWeight: 600, cursor: "pointer",
+                                  transition: "all 0.15s ease",
+                                }}
+                              >
+                                {selected && <span style={{ fontSize: "0.6rem" }}>✓</span>}
+                                <span>{t.name}</span>
+                                <span style={{ fontSize: "0.7rem", opacity: 0.65 }}>+${t.price.toLocaleString("es-CO")}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
                         <SectionLabel>Nota para este ítem</SectionLabel>
                         <textarea
                           placeholder="Ej: bien cocida, sin picante..."
                           value={custom?.notas ?? ""}
                           onChange={(e) =>
-                            onUpdateCustomization(item.id, { sin: custom?.sin ?? [], notas: e.target.value })
+                            onUpdateCustomization(item.id, { sin: custom?.sin ?? [], salsas: custom?.salsas, extras: custom?.extras, notas: e.target.value })
                           }
                           rows={2}
                           style={{ ...inputStyle, resize: "none" }}
@@ -478,45 +527,6 @@ export default function Cart({
                   </div>
                 );
               })}
-
-              {/* ── TOPPINGS EXTRA — hide if cart only has desserts or extras ── */}
-              {items.some((i) => !i.isDessert && !i.id.startsWith("extra-")) && (
-              <div style={{ marginTop: 20, padding: "16px", background: "#0d0d0d", borderRadius: 8, border: "1px solid #1e1e1e" }}>
-                <div style={{ fontFamily: "var(--font-bebas)", fontSize: "1rem", letterSpacing: 2, color: "var(--blanco)", marginBottom: 12 }}>
-                  Adicionales
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {TOPPINGS_EXTRA.map((t) => {
-                    const inCart = items.some((i) => i.id === t.id);
-                    return (
-                      <button
-                        key={t.id}
-                        type="button"
-                        onClick={() => onAddItem({ id: t.id, name: t.name, price: t.price })}
-                        style={{
-                          display: "flex", alignItems: "center", gap: 6,
-                          padding: "6px 12px",
-                          borderRadius: 6,
-                          border: `1px solid ${inCart ? "rgba(245,197,24,0.4)" : "#2a2a2a"}`,
-                          background: inCart ? "rgba(245,197,24,0.08)" : "#141414",
-                          color: inCart ? "var(--amarillo)" : "#888",
-                          fontSize: "0.8rem",
-                          fontFamily: "var(--font-barlow-condensed)",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          transition: "all 0.15s ease",
-                        }}
-                      >
-                        <span>{t.name}</span>
-                        <span style={{ fontSize: "0.72rem", opacity: 0.7 }}>
-                          +${t.price.toLocaleString("es-CO")}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-              )}
 
               {/* ── NOTAS GENERALES ── */}
               <div style={{ marginTop: 16 }}>
